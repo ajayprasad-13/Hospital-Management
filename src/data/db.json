@@ -1,0 +1,88 @@
+{
+  "users": [
+    {
+      "id": "75b2",
+      "username": "afdsfadfd",
+      "email": "adfdwf@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "6a6d",
+      "username": "dinesh mama",
+      "email": "dinesh@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "89ed",
+      "username": "ajay",
+      "email": "ajay@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "5406",
+      "username": "ajay",
+      "email": "ajay@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "1fbf",
+      "username": "ajay",
+      "email": "ajay@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "bbe0",
+      "username": "ajay",
+      "email": "ajay@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "9e2e",
+      "username": "Ajay Prasad",
+      "email": "ajay@gmail.com",
+      "password": "ajay1234",
+      "role": "patient"
+    },
+    {
+      "id": "95d2",
+      "username": "Ajay Prasad",
+      "email": "ajay@gmail.com",
+      "password": "ajay1234",
+      "role": "patient"
+    },
+    {
+      "id": "be69",
+      "username": "Ajay Prasad",
+      "email": "ajay@gmail.com",
+      "password": "ajay1234",
+      "role": "patient"
+    },
+    {
+      "id": "4fc4",
+      "username": "afsadfsadf",
+      "email": "afsadfa@",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "610f",
+      "username": "aaaaa",
+      "email": "aaa@",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "0a99",
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password": "123",
+      "role": "admin"
+    }
+  ]
+}
