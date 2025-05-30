@@ -1,17 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { links } from "../../../../constants/AdminDashboardConstants";
 
 export const Sidebar = () => {
-  const links = [
-    { name: "Dashboard", path: "/admin" },
-    { name: "Patient", path: "/admin/patients" },
-    { name: "Doctors", path: "/admin/doctor" },
-    { name: "Nurse", path: "/admin/nurses" },
-  ];
-
   return (
     <aside className="w-64 bg-[#0B1A33] text-white flex flex-col">
       <div className="p-4 text-xl font-bold border-b border-white/10">
-        Hospital Management
+        Nova Hospital
       </div>
       <nav className="flex-1 p-4 space-y-2 text-sm">
         {links.map(({ name, path }) => (

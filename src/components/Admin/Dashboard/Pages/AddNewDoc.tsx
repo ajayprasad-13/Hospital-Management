@@ -4,6 +4,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import type { RegisterFormType } from "../../../../types/AuthenticationTypes";
 import { doctorRegisterInitialState } from "../../../../constants/AdminDashboardConstants";
 import type { DocDetailType } from "../../../../types/ProfileDetailTypes";
+import { useRegister } from "../../../Hooks/Authentication/useRegister";
+import { useCreateNewDoctor } from "../../../Hooks/Doctor/useCreateNewDoctor";
 
 export default function AddNewDoctorStepper() {
   const navigate = useNavigate();
@@ -11,6 +13,9 @@ export default function AddNewDoctorStepper() {
   const [form, setForm] = useState<RegisterFormType & DocDetailType>(
     doctorRegisterInitialState
   );
+
+  const registerMutation = useRegister();
+  const doctorDetailsMutation = useCreateNewDoctor();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -34,6 +39,23 @@ export default function AddNewDoctorStepper() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    registerMutation.mutate({
+      username: form.username,
+      email: form.email,
+      password: form.password,
+      role: "doctor",
+    });
+    doctorDetailsMutation.mutate({
+      doctorname: form.username,
+      email: form.email,
+      department: form.department,
+      age: form.age,
+      experience: form.experience,
+      gender: form.gender,
+      address: form.address,
+      phone: form.phone,
+      profilephoto: form.profilephoto,
+    });
   };
 
   return (
@@ -59,7 +81,7 @@ export default function AddNewDoctorStepper() {
               </label>
               <input
                 type="text"
-                name="name"
+                name="username"
                 value={form.username}
                 onChange={handleChange}
                 placeholder="Enter doctor's name"
@@ -152,6 +174,35 @@ export default function AddNewDoctorStepper() {
             </div>
             <div>
               <label className="block text-sm text-gray-600 mb-1">
+                Experience
+              </label>
+              <input
+                type="number"
+                name="experience"
+                value={form.experience ?? 0}
+                onChange={handleChange}
+                placeholder="Enter experience"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Gender</label>
+              <select
+                name="gender"
+                value={form.gender}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">
                 Address
               </label>
               <input
@@ -174,6 +225,20 @@ export default function AddNewDoctorStepper() {
                 value={form.phone ?? 0}
                 onChange={handleChange}
                 placeholder="Enter phone number"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">
+                Profile Photo (paste link)
+              </label>
+              <input
+                type="text"
+                name="profilephoto"
+                value={form.profilephoto}
+                onChange={handleChange}
+                placeholder="Enter address"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
                 required
               />

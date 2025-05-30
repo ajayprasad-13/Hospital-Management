@@ -52,7 +52,6 @@ export const Register = () => {
               className="flex flex-col space-y-6"
               onSubmit={handleRegisterForm}
             >
-              {/* Username */}
               <div>
                 <label className="block mb-1">
                   Username <span className="text-red-600">*</span>
@@ -73,7 +72,6 @@ export const Register = () => {
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label className="block mb-1">
                   Email <span className="text-red-600">*</span>
@@ -94,7 +92,6 @@ export const Register = () => {
                 />
               </div>
 
-              {/* Password */}
               <div>
                 <label className="block mb-1">
                   Password <span className="text-red-600">*</span>
@@ -115,7 +112,6 @@ export const Register = () => {
                 />
               </div>
 
-              {/* Confirm Password */}
               <div>
                 <label className="block mb-1">
                   Confirm Password <span className="text-red-600">*</span>
@@ -136,7 +132,6 @@ export const Register = () => {
                 />
               </div>
 
-              {/* Submit button */}
               <button
                 type="submit"
                 className="bg-[#2463eb] text-white py-2 rounded-lg w-full mt-4 hover:bg-blue-700 transition"

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useFetchDoctor } from "../../../Hooks/Doctor/useFetchDoctor";
 
 export default function Doctorlist() {
   const [search, setSearch] = useState<string>("");
@@ -9,6 +10,9 @@ export default function Doctorlist() {
   function handleAddNewDocClick() {
     navigate("/admin/addnewdoctor");
   }
+
+  const { data: docData } = useFetchDoctor();
+  console.log(docData);
 
   return (
     <div className="space-y-6">
@@ -29,7 +33,6 @@ export default function Doctorlist() {
         </button>
       </div>
 
-      {/* Doctors Table */}
       <div className="overflow-x-auto bg-white rounded-xl shadow-md">
         <table className="min-w-full table-auto text-left">
           <thead className="bg-blue-600 text-white">
@@ -37,52 +40,26 @@ export default function Doctorlist() {
               <th className="px-6 py-3 text-sm font-semibold">Photo</th>
               <th className="px-6 py-3 text-sm font-semibold">Name</th>
               <th className="px-6 py-3 text-sm font-semibold">Specialty</th>
-              <th className="px-6 py-3 text-sm font-semibold">Availability</th>
+              <th className="px-6 py-3 text-sm font-semibold">Experience</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            <tr className="hover:bg-blue-50">
-              <td className="px-6 py-4">
-                <img
-                  src="https://media.istockphoto.com/id/1311511363/photo/headshot-portrait-of-smiling-male-doctor-with-tablet.jpg"
-                  alt="Dr. Praveen Kumar"
-                  className="w-12 h-12 rounded-full object-cover border-2 border-blue-100 shadow-sm"
-                />
-              </td>
-              <td className="px-6 py-4 text-gray-800 font-medium">
-                Dr. Praveen Kumar
-              </td>
-              <td className="px-6 py-4 text-gray-600">Cardiologist</td>
-              <td className="px-6 py-4 text-gray-600">Fri - sat</td>
-            </tr>
-            <tr className="hover:bg-blue-50">
-              <td className="px-6 py-4">
-                <img
-                  src="https://media.istockphoto.com/id/1327592500/photo/portrait-of-a-happy-female-doctor-in-her-office.jpg"
-                  alt="Dr. Emily Smith"
-                  className="w-12 h-12 rounded-full object-cover border-2 border-blue-100 shadow-sm"
-                />
-              </td>
-              <td className="px-6 py-4 text-gray-800 font-medium">
-                Dr. Emily Smith
-              </td>
-              <td className="px-6 py-4 text-gray-600">Neurologist</td>
-              <td className="px-6 py-4 text-gray-600">Tue - Sat</td>
-            </tr>
-            <tr className="hover:bg-blue-50">
-              <td className="px-6 py-4">
-                <img
-                  src="https://media.istockphoto.com/id/1396721706/photo/portrait-of-young-doctor.jpg"
-                  alt="Dr. Raj Patel"
-                  className="w-12 h-12 rounded-full object-cover border-2 border-blue-100 shadow-sm"
-                />
-              </td>
-              <td className="px-6 py-4 text-gray-800 font-medium">
-                Dr. Raj Patel
-              </td>
-              <td className="px-6 py-4 text-gray-600">Orthopedic Surgeon</td>
-              <td className="px-6 py-4 text-gray-600">Mon, Wed, Fri</td>
-            </tr>
+            {docData?.map((doctor: any) => (
+              <tr className="hover:bg-blue-50">
+                <td className="px-6 py-4">
+                  <img
+                    src={doctor.profilephoto}
+                    alt={doctor.doctorname}
+                    className="w-12 h-12 rounded-full object-cover border-2 border-blue-100 shadow-sm"
+                  />
+                </td>
+                <td className="px-6 py-4 text-gray-800 font-medium">
+                  {doctor.doctorname}
+                </td>
+                <td className="px-6 py-4 text-gray-600">{doctor.department}</td>
+                <td className="px-6 py-4 text-gray-600">{doctor.experience}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

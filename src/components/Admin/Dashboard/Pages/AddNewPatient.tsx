@@ -1,24 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { RegisterFormType } from "../../../../types/AuthenticationTypes";
+import type { PatientDetailType } from "../../../../types/ProfileDetailTypes";
+import { patientRegisterInitialState } from "../../../../constants/AdminDashboardConstants";
+import { useRegister } from "../../../Hooks/Authentication/useRegister";
+import { useCreatePatientDetails } from "../../../Hooks/Patient/useCreatePatientDetails";
 
 export default function AddNewPatient() {
   const navigate = useNavigate();
+
   const [step, setStep] = useState(1);
+  const [form, setForm] = useState<RegisterFormType & PatientDetailType>(
+    patientRegisterInitialState
+  );
 
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-
-    age: "",
-    gender: "",
-    bloodGroup: "",
-    phone: "",
-    address: "",
-    height: "",
-    weight: "",
-  });
+  const registerMutation = useRegister();
+  const patientDetailsMutation = useCreatePatientDetails();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -37,7 +34,22 @@ export default function AddNewPatient() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Patient Registered:", form);
+    registerMutation.mutate({
+      username: form.username,
+      email: form.email,
+      password: form.password,
+      role: "patient",
+    });
+    patientDetailsMutation.mutate({
+      patientname: form.username,
+      age: form.age,
+      gender: form.gender,
+      bloodGroup: form.bloodGroup,
+      phone: form.phone,
+      address: form.address,
+      height: form.height,
+      weight: form.weight,
+    });
   };
 
   return (
@@ -140,7 +152,7 @@ export default function AddNewPatient() {
                 type="number"
                 name="age"
                 min="0"
-                value={form.age}
+                value={form.age ?? 0}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
                 required
@@ -171,7 +183,7 @@ export default function AddNewPatient() {
               </label>
               <input
                 name="bloodGroup"
-                value={form.bloodGroup}
+                value={form.bloodGroup ?? "O+"}
                 onChange={handleChange}
                 placeholder="e.g. A+, O-"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
@@ -186,7 +198,7 @@ export default function AddNewPatient() {
               <input
                 name="phone"
                 type="tel"
-                value={form.phone}
+                value={form.phone ?? 0}
                 onChange={handleChange}
                 placeholder="Enter phone number"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
@@ -216,7 +228,7 @@ export default function AddNewPatient() {
                 <input
                   name="height"
                   type="number"
-                  value={form.height}
+                  value={form.height ?? 0}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
                   required
@@ -229,7 +241,7 @@ export default function AddNewPatient() {
                 <input
                   name="weight"
                   type="number"
-                  value={form.weight}
+                  value={form.weight ?? 0}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
                   required

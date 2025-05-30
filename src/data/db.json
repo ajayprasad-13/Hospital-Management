@@ -83,6 +83,138 @@
       "email": "admin@gmail.com",
       "password": "123",
       "role": "admin"
+    },
+    {
+      "id": "13ed",
+      "username": "Ajay",
+      "email": "ajay@aa.com",
+      "password": "123",
+      "role": "doctor"
+    },
+    {
+      "id": "cb3c",
+      "username": "Ajay",
+      "email": "ajay@aa.com",
+      "password": "123",
+      "role": "doctor"
+    },
+    {
+      "id": "5791",
+      "username": "Ajay",
+      "email": "ajay@aa.com",
+      "password": "123",
+      "role": "doctor"
+    },
+    {
+      "id": "5838",
+      "username": "Ajay",
+      "email": "ajay@aa.com",
+      "password": "123",
+      "role": "doctor"
+    },
+    {
+      "id": "e272",
+      "username": "wefafadss",
+      "email": "asdfs@gmail.com",
+      "password": "123",
+      "role": "doctor"
+    },
+    {
+      "id": "eeed",
+      "username": "Praveen Kumar",
+      "email": "praveen@gmail.com",
+      "password": "123",
+      "role": "doctor"
+    },
+    {
+      "id": "f1d9",
+      "username": "Dinesh",
+      "email": "dinesh@123",
+      "password": "123",
+      "role": "doctor"
+    },
+    {
+      "id": "ba10",
+      "username": "dinesh",
+      "email": "dinesh@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "1557",
+      "username": "Navaneetha",
+      "email": "navaneetha@gmail.com",
+      "password": "123",
+      "role": "patient"
+    },
+    {
+      "id": "707f",
+      "username": "Navaneetha",
+      "email": "navaneetha@gmail.com",
+      "password": "123",
+      "role": "doctor"
+    }
+  ],
+  "doctor": [
+    {
+      "id": "1fc0",
+      "doctorname": "Praveen Kumar J R",
+      "email": "praveen@gmail.com",
+      "department": "Cardiology",
+      "age": "23",
+      "experience": "5",
+      "gender": "male",
+      "address": "123, Florida, America",
+      "phone": "1234567890",
+      "profilephoto": "https://www.future-doctor.de/wp-content/uploads/2024/08/shutterstock_2480850611.jpg"
+    },
+    {
+      "id": "dffd",
+      "doctorname": "Dinesh Babu N G",
+      "email": "dinesh@123",
+      "department": "Orthopedics",
+      "age": "60",
+      "experience": "20",
+      "gender": "others",
+      "address": "fsdsdfadsvfsdsafsdf",
+      "phone": "1234578679",
+      "profilephoto": "https://nationaldoctorsday.org/wp-content/uploads/2025/02/2025-national-doctors-day-about.jpg"
+    },
+    {
+      "id": "6e5a",
+      "doctorname": "Navaneetha",
+      "email": "navaneetha@gmail.com",
+      "department": "General Medicine",
+      "age": "25",
+      "experience": "3",
+      "gender": "female",
+      "address": "asgdsfdasfgd",
+      "phone": "765435676543",
+      "profilephoto": "fsgdfsdasafs"
+    }
+  ],
+  "patient": [
+    {
+      "id": "7b8e",
+      "patientname": "dinesh",
+      "age": "20",
+      "gender": "Male",
+      "bloodGroup": "O+",
+      "phone": "123456543456",
+      "address": "dzvfxbcxvdsdf",
+      "height": "180",
+      "weight": "60"
+    },
+    {
+      "id": "0b6c",
+      "patientname": "Navaneetha",
+      "age": "20",
+      "gender": "Female",
+      "bloodGroup": "O+",
+      "phone": "3425678765645",
+      "address": "sgfhdfdasfgdh1324354654332",
+      "height": "160",
+      "weight": "30"
     }
   ]
 }

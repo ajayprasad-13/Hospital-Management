@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useFetchPaitent } from "../../../Hooks/Patient/useFetchPatient";
+import type { PatientDetailType } from "../../../../types/ProfileDetailTypes";
 
 export default function PatientsList() {
   const [search, setSearch] = useState<string>("");
@@ -9,6 +11,9 @@ export default function PatientsList() {
   function handleAddNewPatientClick() {
     navigate("/admin/addnewpatient");
   }
+
+  const { data: patientData } = useFetchPaitent();
+  console.log(patientData);
 
   return (
     <div className="space-y-6">
@@ -41,45 +46,29 @@ export default function PatientsList() {
                 Gender
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold">
-                Contact
+                Blood Group
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold">
-                Status
+                Phone Number
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            <tr className="hover:bg-blue-50">
-              <td className="px-6 py-4 text-gray-800 font-medium">
-                Alice Johnson
-              </td>
-              <td className="px-6 py-4 text-gray-600">32</td>
-              <td className="px-6 py-4 text-gray-600">Female</td>
-              <td className="px-6 py-4 text-gray-600">555-1234</td>
-              <td className="px-6 py-4 text-green-600 font-semibold">
-                Admitted
-              </td>
-            </tr>
-            <tr className="hover:bg-blue-50">
-              <td className="px-6 py-4 text-gray-800 font-medium">Bob Smith</td>
-              <td className="px-6 py-4 text-gray-600">45</td>
-              <td className="px-6 py-4 text-gray-600">Male</td>
-              <td className="px-6 py-4 text-gray-600">555-5678</td>
-              <td className="px-6 py-4 text-yellow-600 font-semibold">
-                Under Observation
-              </td>
-            </tr>
-            <tr className="hover:bg-blue-50">
-              <td className="px-6 py-4 text-gray-800 font-medium">
-                Carla Gomez
-              </td>
-              <td className="px-6 py-4 text-gray-600">29</td>
-              <td className="px-6 py-4 text-gray-600">Female</td>
-              <td className="px-6 py-4 text-gray-600">555-9876</td>
-              <td className="px-6 py-4 text-red-600 font-semibold">
-                Discharged
-              </td>
-            </tr>
+            {patientData?.map((patient: PatientDetailType) => (
+              <tr className="hover:bg-blue-50">
+                <td className="px-6 py-4 text-gray-800 font-medium">
+                  {patient.patientname}
+                </td>
+                <td className="px-6 py-4 text-gray-600">{patient.age}</td>
+                <td className="px-6 py-4 text-gray-600">{patient.gender}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  {patient.bloodGroup}
+                </td>
+                <td className="px-6 py-4 text-green-600 font-semibold">
+                  {patient.phone}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

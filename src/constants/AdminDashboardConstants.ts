@@ -1,13 +1,8 @@
-import { Briefcase, Stethoscope, User } from "lucide-react";
 import type { RegisterFormType } from "../types/AuthenticationTypes";
-import type { DocDetailType } from "../types/ProfileDetailTypes";
-
-export const stats = [
-  { count: 3, label: "Patients", color: "text-purple-600", Icon: User },
-  { count: 2, label: "Doctors", color: "text-orange-500", Icon: Stethoscope },
-  { count: 1, label: "Nurses", color: "text-green-600", Icon: User },
-  { count: 2, label: "Medicines", color: "text-red-500", Icon: Briefcase },
-];
+import type {
+  DocDetailType,
+  PatientDetailType,
+} from "../types/ProfileDetailTypes";
 
 export const doctorRegisterInitialState: RegisterFormType & DocDetailType = {
   username: "",
@@ -15,10 +10,36 @@ export const doctorRegisterInitialState: RegisterFormType & DocDetailType = {
   password: "",
   confirmPassword: "",
   role: "doctor",
+  doctorname: "",
   department: "",
   age: null,
   experience: null,
   gender: "Male",
   address: "",
   phone: null,
+  profilephoto: "",
 };
+
+export const links = [
+  { name: "Dashboard", path: "/admin" },
+  { name: "Patient", path: "/admin/patients" },
+  { name: "Doctors", path: "/admin/doctor" },
+  { name: "Nurse", path: "/admin/nurses" },
+];
+
+export const patientRegisterInitialState: RegisterFormType & PatientDetailType =
+  {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "patient",
+    patientname: "",
+    age: null,
+    gender: "Male",
+    bloodGroup: null,
+    phone: null,
+    address: "",
+    height: null,
+    weight: null,
+  };
