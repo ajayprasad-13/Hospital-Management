@@ -6,6 +6,8 @@ import { doctorRegisterInitialState } from "../../../../constants/AdminDashboard
 import type { DocDetailType } from "../../../../types/ProfileDetailTypes";
 import { useRegister } from "../../../Hooks/Authentication/useRegister";
 import { useCreateNewDoctor } from "../../../Hooks/Doctor/useCreateNewDoctor";
+import { isEmailExist } from "../../../../utils/api";
+import { toast } from "sonner";
 
 export default function AddNewDoctorStepper() {
   const navigate = useNavigate();
@@ -37,8 +39,16 @@ export default function AddNewDoctorStepper() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const emailExists = await isEmailExist(form.email);
+
+    if (emailExists) {
+      toast.error("Email already in use");
+      return;
+    }
+
     registerMutation.mutate({
       username: form.username,
       email: form.email,
