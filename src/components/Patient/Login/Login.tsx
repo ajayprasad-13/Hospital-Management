@@ -13,7 +13,7 @@ export const Login = () => {
   const { data } = useLogin();
   console.log(data);
 
-  function handleLoginClick(e: React.FormEvent) {
+  async function handleLoginClick(e: React.FormEvent) {
     e.preventDefault();
 
     const { email, password } = formRef.current;

@@ -5,6 +5,7 @@ import type { RegisterFormType } from "../../../types/AuthenticationTypes";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { initialFormState } from "../../../constants/RegisterUtilsConstants";
+import { isEmailExist } from "../../../utils/api";
 
 export const Register = () => {
   const registerMutation = useRegister();
@@ -12,13 +13,19 @@ export const Register = () => {
 
   const [form, setForm] = useState<RegisterFormType>(initialFormState);
 
-  function handleRegisterForm(e: React.FormEvent) {
+  async function handleRegisterForm(e: React.FormEvent) {
     e.preventDefault();
+
+    const emailExists = await isEmailExist(form.email);
+
     if (form.username.length < 5) {
       toast.error("Username must have atleast 5 letter");
       return;
     } else if (!form.email.includes("@")) {
       toast.error("Enter a valid email");
+      return;
+    } else if (emailExists) {
+      toast.error("Email already in use");
       return;
     } else if (form.password !== form.confirmPassword) {
       toast.error("Password mismatch");

@@ -29,7 +29,11 @@ export default function AddNewPatient() {
   };
 
   const handleBack = () => {
-    setStep(1);
+    if (step === 1) {
+      navigate(-1);
+    } else {
+      setStep(step - 1);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -61,7 +65,7 @@ export default function AddNewPatient() {
         <div className="flex justify-between">
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             className="text-blue-600 hover:text-blue-800 font-semibold"
           >
             &larr; Back
@@ -250,13 +254,6 @@ export default function AddNewPatient() {
             </div>
 
             <div className="flex justify-between items-center">
-              <button
-                type="button"
-                onClick={handleBack}
-                className="text-blue-600 hover:text-blue-800 font-semibold"
-              >
-                &larr; Back
-              </button>
               <button
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-xl font-semibold shadow-md"
