@@ -20,3 +20,7 @@ export type PatientDetailType = {
   height: number | null;
   weight: number | null;
 };
+
+export type ConvertToString<T> = {
+  [K in keyof T]: string;
+};
