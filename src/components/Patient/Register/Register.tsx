@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { initialFormState } from "../../../constants/RegisterUtilsConstants";
 import { isEmailExist } from "../../../utils/api";
+import { registerFormValidator } from "../../../utils/formValidation";
 
 export const Register = () => {
   const registerMutation = useRegister();
@@ -17,31 +18,37 @@ export const Register = () => {
     e.preventDefault();
 
     const emailExists = await isEmailExist(form.email);
-
-    if (form.username.length < 5) {
-      toast.error("Username must have atleast 5 letter");
-      return;
-    } else if (!form.email.includes("@")) {
-      toast.error("Enter a valid email");
-      return;
+    const validateRegisterForm = registerFormValidator(form);
+    // if (form.username.length < 5) {
+    //   toast.error("Username must have atleast 5 letter");
+    //   return;
+    // } else if (!form.email.includes("@")) {
+    //   toast.error("Enter a valid email");
+    //   return;
+    // } else if (emailExists) {
+    //   toast.error("Email already in use");
+    //   return;
+    // } else if (form.password !== form.confirmPassword) {
+    //   toast.error("Password mismatch");
+    //   return;
+    // }
+    if (Object.keys(validateRegisterForm).length > 0) {
+      const firstError = Object.values(validateRegisterForm)[0];
+      toast.error(firstError);
     } else if (emailExists) {
       toast.error("Email already in use");
-      return;
-    } else if (form.password !== form.confirmPassword) {
-      toast.error("Password mismatch");
-      return;
+    } else {
+      registerMutation.mutate({
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        role: "patient",
+      });
+      console.log(form);
+      toast.success("Registered Sucessfully");
+      setForm(initialFormState);
+      navigate("/login");
     }
-
-    registerMutation.mutate({
-      username: form.username,
-      email: form.email,
-      password: form.password,
-      role: "patient",
-    });
-    console.log(form);
-    toast.success("Registered Sucessfully");
-    setForm(initialFormState);
-    navigate("/login");
   }
 
   return (
@@ -73,7 +80,6 @@ export const Register = () => {
                   value={form.username}
                   name="username"
                   type="text"
-                  required
                   placeholder="Enter username"
                   className="pl-3 pr-4 py-2 w-full border border-gray-300 rounded-lg"
                 />
@@ -93,7 +99,6 @@ export const Register = () => {
                   value={form.email}
                   name="email"
                   type="text"
-                  required
                   placeholder="Enter email"
                   className="pl-3 pr-4 py-2 w-full border border-gray-300 rounded-lg"
                 />
@@ -113,7 +118,6 @@ export const Register = () => {
                   value={form.password}
                   name="password"
                   type="password"
-                  required
                   placeholder="Enter password"
                   className="pl-3 pr-4 py-2 w-full border border-gray-300 rounded-lg"
                 />
@@ -133,7 +137,6 @@ export const Register = () => {
                   value={form.confirmPassword}
                   name="confirmPassword"
                   type="password"
-                  required
                   placeholder="Confirm password"
                   className="pl-3 pr-4 py-2 w-full border border-gray-300 rounded-lg"
                 />

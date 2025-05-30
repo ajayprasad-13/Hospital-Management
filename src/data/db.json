@@ -153,6 +153,13 @@
       "email": "navaneetha@gmail.com",
       "password": "123",
       "role": "doctor"
+    },
+    {
+      "id": "8cd1",
+      "username": "aaaa",
+      "email": "aaaa@gmail.com",
+      "password": "123",
+      "role": "patient"
     }
   ],
   "doctor": [
