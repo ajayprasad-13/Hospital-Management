@@ -3,150 +3,257 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddNewPatient() {
   const navigate = useNavigate();
+  const [step, setStep] = useState(1);
 
-  const [formData, setFormData] = useState({
-    name: "",
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+
     age: "",
     gender: "",
-    contact: "",
-    status: "",
+    bloodGroup: "",
+    phone: "",
+    address: "",
+    height: "",
+    weight: "",
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleNext = () => {
+    setStep(2);
+  };
+
+  const handleBack = () => {
+    setStep(1);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: handle form submission (API call)
-    console.log("Submitted data:", formData);
+    console.log("Patient Registered:", form);
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 p-4">
-      {/* Back button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-6 self-start text-blue-600 hover:text-blue-800 font-semibold"
-      >
-        &larr; Back
-      </button>
-
-      {/* Form */}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-xl shadow-md p-6 w-full max-w-lg space-y-5"
+        className="bg-white rounded-xl shadow-md p-6 w-full max-w-lg space-y-6"
       >
-        <h2 className="text-xl font-bold text-gray-800">Add New Patient</h2>
-
-        <div>
-          <label
-            className="block mb-1 font-medium text-gray-700"
-            htmlFor="name"
+        <div className="flex justify-between">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="text-blue-600 hover:text-blue-800 font-semibold"
           >
-            Full Name
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Enter full name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-            required
-          />
+            &larr; Back
+          </button>
+          <span className="text-sm text-gray-600">Step {step} of 2</span>
         </div>
 
-        <div>
-          <label className="block mb-1 font-medium text-gray-700" htmlFor="age">
-            Age
-          </label>
-          <input
-            id="age"
-            name="age"
-            type="number"
-            min="0"
-            value={formData.age}
-            onChange={handleChange}
-            placeholder="Enter age"
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-            required
-          />
-        </div>
+        {step === 1 && (
+          <>
+            <h2 className="text-xl font-bold text-gray-800">Account Info</h2>
 
-        <div>
-          <label
-            className="block mb-1 font-medium text-gray-700"
-            htmlFor="gender"
-          >
-            Gender
-          </label>
-          <select
-            id="gender"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-            required
-          >
-            <option value="">Select gender</option>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Username
+              </label>
+              <input
+                name="username"
+                value={form.username}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
 
-        <div>
-          <label
-            className="block mb-1 font-medium text-gray-700"
-            htmlFor="contact"
-          >
-            Contact Number
-          </label>
-          <input
-            id="contact"
-            name="contact"
-            type="tel"
-            value={formData.contact}
-            onChange={handleChange}
-            placeholder="Enter contact number"
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-            required
-          />
-        </div>
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
 
-        <div>
-          <label
-            className="block mb-1 font-medium text-gray-700"
-            htmlFor="status"
-          >
-            Status
-          </label>
-          <select
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-            required
-          >
-            <option value="">Select status</option>
-            <option value="Admitted">Admitted</option>
-            <option value="Under Observation">Under Observation</option>
-            <option value="Discharged">Discharged</option>
-          </select>
-        </div>
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl font-semibold shadow-md transition"
-        >
-          Add Patient
-        </button>
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={handleNext}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl font-semibold shadow-md"
+            >
+              Next
+            </button>
+          </>
+        )}
+
+        {step === 2 && (
+          <>
+            <h2 className="text-xl font-bold text-gray-800">
+              Personal Details
+            </h2>
+
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Age
+              </label>
+              <input
+                type="number"
+                name="age"
+                min="0"
+                value={form.age}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Gender
+              </label>
+              <select
+                name="gender"
+                value={form.gender}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              >
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Blood Group
+              </label>
+              <input
+                name="bloodGroup"
+                value={form.bloodGroup}
+                onChange={handleChange}
+                placeholder="e.g. A+, O-"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                name="phone"
+                type="tel"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="Enter phone number"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Address
+              </label>
+              <input
+                name="address"
+                value={form.address}
+                onChange={handleChange}
+                placeholder="Enter address"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                required
+              />
+            </div>
+
+            <div className="flex gap-4">
+              <div className="w-1/2">
+                <label className="block mb-1 font-medium text-gray-700">
+                  Height (cm)
+                </label>
+                <input
+                  name="height"
+                  type="number"
+                  value={form.height}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  required
+                />
+              </div>
+              <div className="w-1/2">
+                <label className="block mb-1 font-medium text-gray-700">
+                  Weight (kg)
+                </label>
+                <input
+                  name="weight"
+                  type="number"
+                  value={form.weight}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <button
+                type="button"
+                onClick={handleBack}
+                className="text-blue-600 hover:text-blue-800 font-semibold"
+              >
+                &larr; Back
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-xl font-semibold shadow-md"
+              >
+                Register
+              </button>
+            </div>
+          </>
+        )}
       </form>
     </div>
   );

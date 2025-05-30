@@ -1,10 +1,10 @@
 import { useState } from "react";
 import loginLogo from "../../../assets/login_logo.jpg";
 import { useRegister } from "../../Hooks/Authentication/useRegister";
-import type { RegisterFormType } from "../../../Types/Types";
+import type { RegisterFormType } from "../../../types/AuthenticationTypes";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { initialFormState } from "./Utils/RegisterUtils";
+import { initialFormState } from "../../../constants/RegisterUtilsConstants";
 
 export const Register = () => {
   const registerMutation = useRegister();

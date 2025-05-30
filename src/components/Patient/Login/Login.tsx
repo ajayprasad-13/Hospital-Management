@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import loginLogo from "../../../assets/login_logo.jpg";
-import { loginInitialState } from "./Utils/LoginUtils";
-import type { LoginFormType } from "../../../Types/Types";
+import { loginInitialState } from "../../../constants/LoginUtilsConstants";
+import type { LoginFormType } from "../../../types/AuthenticationTypes";
 import { toast } from "sonner";
 import { useLogin } from "../../Hooks/Authentication/useLogin";
 import { useNavigate } from "react-router-dom";

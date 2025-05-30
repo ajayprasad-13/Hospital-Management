@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function PatientsList() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
+  const navigate = useNavigate();
+
+  function handleAddNewPatientClick() {
+    navigate("/admin/addnewpatient");
+  }
 
   return (
     <div className="space-y-6">
@@ -14,7 +20,10 @@ export default function PatientsList() {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
         />
-        <button className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-md">
+        <button
+          onClick={handleAddNewPatientClick}
+          className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-md"
+        >
           <FaPlus />
           Add New Patient
         </button>

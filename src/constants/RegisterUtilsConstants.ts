@@ -1,4 +1,4 @@
-import type { RegisterFormType } from "../../../../Types/Types";
+import type { RegisterFormType } from "../types/AuthenticationTypes";
 
 export const initialFormState: RegisterFormType = {
   username: "",

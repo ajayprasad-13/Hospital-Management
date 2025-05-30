@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "../../../Api/FetchaApi";
-import type { RegisterFormType } from "../../../Types/Types";
+import fetchApi from "../../../api/FetchaApi";
+import type { RegisterFormType } from "../../../types/AuthenticationTypes";
 
 export const useRegister = () => {
   return useMutation({

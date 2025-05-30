@@ -1,4 +1,4 @@
-import { stats } from "../Utils/AdminDashboardUtils";
+import { stats } from "../../../../constants/AdminDashboardConstants";
 
 export default function Dashboard() {
   return (
