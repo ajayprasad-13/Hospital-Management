@@ -5,6 +5,7 @@ import type { LoginFormType } from "../../../types/AuthenticationTypes";
 import { toast } from "sonner";
 import { useLogin } from "../../Hooks/Authentication/useLogin";
 import { useNavigate } from "react-router-dom";
+import { loginFormValidator } from "../../../utils/formValidation";
 
 export const Login = () => {
   const formRef = useRef<LoginFormType>({ ...loginInitialState });
@@ -13,7 +14,7 @@ export const Login = () => {
   const { data } = useLogin();
   console.log(data);
 
-  async function handleLoginClick(e: React.FormEvent) {
+  function handleLoginClick(e: React.FormEvent) {
     e.preventDefault();
 
     const { email, password } = formRef.current;
@@ -23,16 +24,21 @@ export const Login = () => {
         user.email === email && user.password === password
     );
 
-    if (!email.includes("@")) {
-      toast.error("Enter a valid email");
-      return;
+    const formInputData = {
+      email: email,
+      password: password,
+    };
+
+    const validateLoginForm = loginFormValidator(formInputData);
+
+    if (Object.keys(validateLoginForm).length > 0) {
+      const firstError = Object.values(validateLoginForm)[0];
+      toast.error(firstError);
     } else if (!user) {
-      toast.error("Email or password incorrect!");
-    } else if (user.email === email && user.password === password) {
+      toast.error("Email or password is incorrect");
+    } else if (Object.keys(validateLoginForm).length === 0 && user) {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success("Sucessfully logged in");
-      navigate("/");
-
       if (user.role === "patient") {
         navigate("/");
       } else if (user.role === "admin") {
