@@ -87,30 +87,30 @@ export const doctorRegisterFormValidator = (
     errors.age = "Is this really a doctor?";
   }
 
-  if(!formData.experience.trim() || isNaN(Number(formData.age))){
-    errors.experience = 'Enter a valid years of experience'
+  if (!formData.experience.trim() || isNaN(Number(formData.age))) {
+    errors.experience = "Enter a valid years of experience";
   }
 
-  if(!formData.gender.trim()){
-    errors.gender = 'Please select a gender'
+  if (!formData.gender.trim()) {
+    errors.gender = "Please select a gender";
   }
 
-  if(!formData.address.trim()){
-    errors.address = 'Please Enter a address'
-  }else if(formData.address.length < 10){
-    errors.address = 'Enter a valid address'
+  if (!formData.address.trim()) {
+    errors.address = "Please Enter a address";
+  } else if (formData.address.length < 10) {
+    errors.address = "Enter a valid address";
   }
 
-  if(!formData.phone.trim() || isNaN(Number(formData.password)){
-    errors.phone = 'Enter phone number'
-  }else if(formData.phone.length === 10){
-    errors.phone = 'Enter a valid phone number'
+  if (!formData.phone.trim() || isNaN(Number(formData.password))) {
+    errors.phone = "Enter phone number";
+  } else if (formData.phone.length === 10) {
+    errors.phone = "Enter a valid phone number";
   }
 
-  if(!formData.profilephoto.trim()){
-    errors.profilephoto = 'Profile pic url cannot be empty'
-  }else if(!formData.profilephoto.includes('http')){
-    errors.profilephoto = 'Enter a valid photo url'
+  if (!formData.profilephoto.trim()) {
+    errors.profilephoto = "Profile pic url cannot be empty";
+  } else if (!formData.profilephoto.includes("http")) {
+    errors.profilephoto = "Enter a valid photo url";
   }
 
   return errors;
