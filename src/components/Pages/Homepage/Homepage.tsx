@@ -55,7 +55,7 @@ export const Homepage = () => {
         </section>
 
         <footer className="bg-white py-4 text-center text-sm text-gray-500 border-t">
-          © 2025 Hospital Management System. All rights reserved.
+          © 2025 Nova Hospital. All rights reserved.
         </footer>
       </div>
     </>

@@ -1,6 +1,13 @@
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Nurselist() {
+  const navigate = useNavigate();
+
+  function handleAddNewNurseClick() {
+    navigate("/admin/addnewnurse");
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -9,9 +16,12 @@ export default function Nurselist() {
           placeholder="Search patients..."
           className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
         />
-        <button className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-md">
+        <button
+          onClick={handleAddNewNurseClick}
+          className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-md"
+        >
           <FaPlus />
-          Add New Patient
+          Add New Nurse
         </button>
       </div>
 

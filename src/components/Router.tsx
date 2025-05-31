@@ -12,6 +12,7 @@ import AddNewDoc from "./Admin/Dashboard/Pages/AddNewDoc";
 import PatientsList from "./Admin/Dashboard/Pages/PatientList";
 import AddNewPatient from "./Admin/Dashboard/Pages/AddNewPatient";
 import Nurselist from "./Admin/Dashboard/Pages/Nurselist";
+import { AddNewNurse } from "./Admin/Dashboard/Pages/AddNewNurse";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "nurse",
         element: <Nurselist />,
+      },
+      {
+        path: "addnewnurse",
+        element: <AddNewNurse />,
       },
     ],
   },

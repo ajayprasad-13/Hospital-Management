@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import fetchApi from "../../../api/FetchaApi";
 
-export const useFetchDoctor = () => {
+export const UseFetchNurse = () => {
   return useQuery({
-    queryKey: ["doctor"],
+    queryKey: ["nurse"],
     queryFn: async () => {
-      const res = await fetchApi.get("/doctor");
+      const res = await fetchApi.get("/nurse");
       return res.data;
     },
   });

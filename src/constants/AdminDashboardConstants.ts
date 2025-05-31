@@ -1,6 +1,7 @@
 import type { RegisterFormType } from "../types/AuthenticationTypes";
 import type {
   DocDetailType,
+  NurseDetailType,
   PatientDetailType,
 } from "../types/ProfileDetailTypes";
 
@@ -43,3 +44,19 @@ export const patientRegisterInitialState: RegisterFormType & PatientDetailType =
     height: null,
     weight: null,
   };
+
+export const nurseRegisterInitialState: RegisterFormType & NurseDetailType = {
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  role: "nurse",
+  nursename: "",
+  age: null,
+  gender: "",
+  qualification: "",
+  experience: null,
+  department: "",
+  address: "",
+  emergencycontact: "",
+};

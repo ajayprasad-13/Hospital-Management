@@ -13,12 +13,23 @@ export type DocDetailType = {
 export type PatientDetailType = {
   patientname: string;
   age: number | null;
-  gender: "Male" | "Female" | "Others";
+  gender: "Male" | "Female" | "Others" | "";
   bloodGroup: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-" | null;
   phone: number | null;
   address: string;
   height: number | null;
   weight: number | null;
+};
+
+export type NurseDetailType = {
+  nursename: string;
+  age: number | null;
+  gender: "" | "male" | "female" | "others";
+  qualification: string;
+  experience: number | null;
+  department: "" | "icu" | "er" | "ward" | "ot";
+  address: string;
+  emergencycontact: string;
 };
 
 export type ConvertToString<T> = {

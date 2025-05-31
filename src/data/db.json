@@ -181,6 +181,13 @@
       "email": "aadgwdav@gmail.com",
       "password": "12345678",
       "role": "patient"
+    },
+    {
+      "id": "17cd",
+      "username": "aasda",
+      "email": "aandsfn@gmail.com",
+      "password": "12345678",
+      "role": "nurse"
     }
   ],
   "doctor": [
@@ -278,6 +285,19 @@
       "address": "dfgcxfdfgdhf",
       "height": null,
       "weight": null
+    }
+  ],
+  "nurse": [
+    {
+      "id": "ba61",
+      "nursename": "aasda",
+      "age": null,
+      "gender": "Male",
+      "qualification": "sdgdsfg",
+      "experience": "234",
+      "department": "ICU",
+      "address": "ergdhggsaeargsdth",
+      "emergencycontact": "ghdfdgsfadweaf"
     }
   ]
 }

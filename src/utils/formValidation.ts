@@ -5,6 +5,7 @@ import type {
 import type {
   ConvertToString,
   DocDetailType,
+  NurseDetailType,
   PatientDetailType,
 } from "../types/ProfileDetailTypes";
 
@@ -113,4 +114,40 @@ export const patientDetailFormValidator = (
   }
 
   return errors;
+};
+
+export const nurseDetailFormValidator = (
+  formData: ConvertToString<NurseDetailType>
+): Partial<ConvertToString<NurseDetailType>> => {
+  const error: Partial<ConvertToString<NurseDetailType>> = {};
+
+  if (!formData.age.trim()) {
+    error.age = "Enter valid age";
+  }
+
+  if (!formData.gender.trim()) {
+    error.gender = "Select a gender";
+  }
+
+  if (!formData.qualification.trim()) {
+    error.qualification = "Enter qualification";
+  }
+
+  if (!formData.experience.trim()) {
+    error.experience = "Enter experience";
+  }
+
+  if (!formData.department.trim()) {
+    error.department = "Select a department";
+  }
+
+  if (!formData.address.trim()) {
+    error.department = "Enter address";
+  }
+
+  if (!formData.emergencycontact.trim()) {
+    error.emergencycontact = "Enter emergency contact";
+  }
+
+  return error;
 };
