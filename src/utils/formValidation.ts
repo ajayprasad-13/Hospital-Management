@@ -5,6 +5,7 @@ import type {
 import type {
   ConvertToString,
   DocDetailType,
+  PatientDetailType,
 } from "../types/ProfileDetailTypes";
 
 export const loginFormValidator = (
@@ -83,6 +84,32 @@ export const doctorDetailFormValidator = (
     errors.profilephoto = "Profile photo URL cannot be empty";
   } else if (formData.profilephoto.includes("http")) {
     errors.profilephoto = "Enter a valid photo URL";
+  }
+
+  return errors;
+};
+
+export const patientDetailFormValidator = (
+  formData: ConvertToString<PatientDetailType>
+): Partial<ConvertToString<PatientDetailType>> => {
+  const errors: Partial<ConvertToString<PatientDetailType>> = {};
+
+  if (!formData.age.trim() || isNaN(Number(formData.age))) {
+    errors.age = "Enter a valid age";
+  }
+
+  if (!formData.gender.trim()) {
+    errors.gender = "Please select a gender";
+  }
+
+  if (!formData.bloodGroup.trim()) {
+    errors.bloodGroup = "Select a blood group";
+  }
+
+  if (!formData.phone.trim() || isNaN(Number(formData.phone))) {
+    errors.phone = "Enter a phone number";
+  } else if (formData.phone.length !== 10) {
+    errors.phone = "Phone number must be 10 digits";
   }
 
   return errors;

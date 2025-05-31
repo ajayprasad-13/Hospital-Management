@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { RegisterFormType } from "../../../../types/AuthenticationTypes";
-import type { PatientDetailType } from "../../../../types/ProfileDetailTypes";
+import type {
+  ConvertToString,
+  PatientDetailType,
+} from "../../../../types/ProfileDetailTypes";
 import { patientRegisterInitialState } from "../../../../constants/AdminDashboardConstants";
 import { useRegister } from "../../../Hooks/Authentication/useRegister";
 import { useCreatePatientDetails } from "../../../Hooks/Patient/useCreatePatientDetails";
 import { isEmailExist } from "../../../../utils/api";
 import { toast } from "sonner";
+import {
+  patientDetailFormValidator,
+  registerFormValidator,
+} from "../../../../utils/formValidation";
 
 export default function AddNewPatient() {
   const navigate = useNavigate();
@@ -26,7 +33,30 @@ export default function AddNewPatient() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleNext = () => {
+  const stepOneData: RegisterFormType = {
+    username: form.username,
+    email: form.email,
+    password: form.password,
+    confirmPassword: form.password,
+    role: "patient",
+  };
+
+  const handleNext = async () => {
+    const validateRegisterForm = registerFormValidator(stepOneData);
+
+    if (Object.keys(validateRegisterForm).length > 0) {
+      const firstError = Object.values(validateRegisterForm)[0];
+      toast.error(firstError);
+      return;
+    }
+
+    const emailExists = await isEmailExist(form.email);
+
+    if (emailExists) {
+      toast.error("Email already in use");
+      return;
+    }
+
     setStep(2);
   };
 
@@ -41,29 +71,45 @@ export default function AddNewPatient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const emailExists = await isEmailExist(form.email);
-
-    if (emailExists) {
-      toast.error("Email already in use");
-      return;
-    }
-
-    registerMutation.mutate({
-      username: form.username,
-      email: form.email,
-      password: form.password,
-      role: "patient",
-    });
-    patientDetailsMutation.mutate({
-      patientname: form.username,
-      age: form.age,
+    const patientDetailFormData: ConvertToString<PatientDetailType> = {
+      patientname: form.patientname,
+      age: form.age?.toString() ?? "",
       gender: form.gender,
-      bloodGroup: form.bloodGroup,
-      phone: form.phone,
+      bloodGroup: form.bloodGroup ?? "",
+      phone: form.phone?.toString() ?? "",
       address: form.address,
-      height: form.height,
-      weight: form.weight,
-    });
+      height: form.height?.toString() ?? "",
+      weight: form.weight?.toString() ?? "",
+    };
+
+    const patientDetailValidator = patientDetailFormValidator(
+      patientDetailFormData
+    );
+
+    if (Object.keys(patientDetailValidator).length > 0) {
+      const firstError = Object.values(patientDetailValidator)[0];
+      toast.error(firstError);
+    } else if (Object.keys(patientDetailValidator).length === 0) {
+      registerMutation.mutate({
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        role: "patient",
+      });
+      patientDetailsMutation.mutate({
+        patientname: form.username,
+        age: form.age,
+        gender: form.gender,
+        bloodGroup: form.bloodGroup,
+        phone: form.phone,
+        address: form.address,
+        height: form.height,
+        weight: form.weight,
+      });
+
+      toast.success("Patient profile created sucessfully");
+      navigate("/admin/patient");
+    }
   };
 
   return (
@@ -96,7 +142,6 @@ export default function AddNewPatient() {
                 value={form.username}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -110,7 +155,6 @@ export default function AddNewPatient() {
                 value={form.email}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -124,7 +168,6 @@ export default function AddNewPatient() {
                 value={form.password}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -138,7 +181,6 @@ export default function AddNewPatient() {
                 value={form.confirmPassword}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -169,7 +211,6 @@ export default function AddNewPatient() {
                 value={form.age ?? 0}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -182,7 +223,6 @@ export default function AddNewPatient() {
                 value={form.gender}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               >
                 <option value="">Select gender</option>
                 <option value="Male">Male</option>
@@ -201,7 +241,6 @@ export default function AddNewPatient() {
                 onChange={handleChange}
                 placeholder="e.g. A+, O-"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -216,7 +255,6 @@ export default function AddNewPatient() {
                 onChange={handleChange}
                 placeholder="Enter phone number"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -230,7 +268,6 @@ export default function AddNewPatient() {
                 onChange={handleChange}
                 placeholder="Enter address"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
 
@@ -245,7 +282,6 @@ export default function AddNewPatient() {
                   value={form.height ?? 0}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                  required
                 />
               </div>
               <div className="w-1/2">
@@ -258,7 +294,6 @@ export default function AddNewPatient() {
                   value={form.weight ?? 0}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                  required
                 />
               </div>
             </div>
