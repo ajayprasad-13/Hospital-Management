@@ -14,7 +14,7 @@ export const doctorRegisterInitialState: RegisterFormType & DocDetailType = {
   department: "",
   age: null,
   experience: null,
-  gender: "Male",
+  gender: "",
   address: "",
   phone: null,
   profilephoto: "",

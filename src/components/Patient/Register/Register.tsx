@@ -19,24 +19,14 @@ export const Register = () => {
 
     const emailExists = await isEmailExist(form.email);
     const validateRegisterForm = registerFormValidator(form);
-    // if (form.username.length < 5) {
-    //   toast.error("Username must have atleast 5 letter");
-    //   return;
-    // } else if (!form.email.includes("@")) {
-    //   toast.error("Enter a valid email");
-    //   return;
-    // } else if (emailExists) {
-    //   toast.error("Email already in use");
-    //   return;
-    // } else if (form.password !== form.confirmPassword) {
-    //   toast.error("Password mismatch");
-    //   return;
-    // }
+
     if (Object.keys(validateRegisterForm).length > 0) {
       const firstError = Object.values(validateRegisterForm)[0];
       toast.error(firstError);
+      return;
     } else if (emailExists) {
       toast.error("Email already in use");
+      return;
     } else {
       registerMutation.mutate({
         username: form.username,

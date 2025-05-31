@@ -2,9 +2,9 @@ export type DocDetailType = {
   doctorname: string;
   email: string;
   department: string;
-  age: number | null;
+  age: number | string | null;
   experience: number | null;
-  gender: "Male" | "Female" | "Others";
+  gender: "Male" | "Female" | "Others" | "";
   address: string;
   phone: number | null;
   profilephoto: string;

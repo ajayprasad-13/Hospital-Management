@@ -3,11 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import type { RegisterFormType } from "../../../../types/AuthenticationTypes";
 import { doctorRegisterInitialState } from "../../../../constants/AdminDashboardConstants";
-import type { DocDetailType } from "../../../../types/ProfileDetailTypes";
+import type {
+  ConvertToString,
+  DocDetailType,
+} from "../../../../types/ProfileDetailTypes";
 import { useRegister } from "../../../Hooks/Authentication/useRegister";
 import { useCreateNewDoctor } from "../../../Hooks/Doctor/useCreateNewDoctor";
 import { isEmailExist } from "../../../../utils/api";
 import { toast } from "sonner";
+import {
+  doctorDetailFormValidator,
+  registerFormValidator,
+} from "../../../../utils/formValidation";
 
 export default function AddNewDoctorStepper() {
   const navigate = useNavigate();
@@ -25,10 +32,30 @@ export default function AddNewDoctorStepper() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleNext = () => {
-    if (form.username && form.email && form.password && form.confirmPassword) {
-      setStep(2);
+  const stepOneData: RegisterFormType = {
+    username: form.username,
+    email: form.email,
+    password: form.password,
+    confirmPassword: form.confirmPassword,
+    role: "doctor",
+  };
+
+  const handleNext = async () => {
+    const validateRegisterForm = registerFormValidator(stepOneData);
+
+    if (Object.keys(validateRegisterForm).length > 0) {
+      const firstError = Object.values(validateRegisterForm)[0];
+      toast.error(firstError);
+      return;
     }
+
+    const emailExists = await isEmailExist(form.email);
+    if (emailExists) {
+      toast.error("Email already in use");
+      return;
+    }
+
+    setStep(2);
   };
 
   const handleBack = () => {
@@ -41,31 +68,44 @@ export default function AddNewDoctorStepper() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const emailExists = await isEmailExist(form.email);
-
-    if (emailExists) {
-      toast.error("Email already in use");
-      return;
-    }
-
-    registerMutation.mutate({
-      username: form.username,
-      email: form.email,
-      password: form.password,
-      role: "doctor",
-    });
-    doctorDetailsMutation.mutate({
-      doctorname: form.username,
+    const doctorDetailFormData: Omit<ConvertToString<DocDetailType>, "age"> = {
+      doctorname: form.doctorname,
       email: form.email,
       department: form.department,
-      age: form.age,
-      experience: form.experience,
+      experience: form.experience?.toString() ?? "",
       gender: form.gender,
       address: form.address,
-      phone: form.phone,
+      phone: form.phone?.toString() ?? "",
       profilephoto: form.profilephoto,
-    });
+    };
+    const validateDetailsForm = doctorDetailFormValidator(doctorDetailFormData);
+
+    if (Object.values(validateDetailsForm).length > 0) {
+      const firstError = Object.values(validateDetailsForm)[0];
+      toast.error(firstError);
+      return;
+    } else if (Object.values(validateDetailsForm).length === 0) {
+      registerMutation.mutate({
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        role: "doctor",
+      });
+      doctorDetailsMutation.mutate({
+        doctorname: form.username,
+        email: form.email,
+        department: form.department,
+        age: form.age,
+        experience: form.experience,
+        gender: form.gender,
+        address: form.address,
+        phone: form.phone,
+        profilephoto: form.profilephoto,
+      });
+    }
+
+    toast.success("Doctor created sucessfully");
+    navigate("/admin/doctor");
   };
 
   return (
@@ -96,7 +136,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter doctor's name"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <div>
@@ -108,7 +147,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter email"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <div>
@@ -122,7 +160,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter password"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <div>
@@ -136,7 +173,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Confirm password"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <button
@@ -160,7 +196,6 @@ export default function AddNewDoctorStepper() {
                 value={form.department}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               >
                 <option value="">Select department</option>
                 <option value="Cardiology">Cardiology</option>
@@ -179,7 +214,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter age"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <div>
@@ -193,7 +227,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter experience"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <div>
@@ -203,7 +236,6 @@ export default function AddNewDoctorStepper() {
                 value={form.gender}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               >
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
@@ -222,7 +254,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter address"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <div>
@@ -236,7 +267,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter phone number"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <div>
@@ -250,7 +280,6 @@ export default function AddNewDoctorStepper() {
                 onChange={handleChange}
                 placeholder="Enter address"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-                required
               />
             </div>
             <button

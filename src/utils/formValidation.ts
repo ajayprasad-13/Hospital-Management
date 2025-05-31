@@ -50,67 +50,39 @@ export const registerFormValidator = (
   return errors;
 };
 
-export const doctorRegisterFormValidator = (
-  formData: ConvertToString<RegisterFormType & DocDetailType>
-): Partial<ConvertToString<RegisterFormType & DocDetailType>> => {
-  const errors: Partial<ConvertToString<RegisterFormType & DocDetailType>> = {};
-
-  if (!formData.username.trim()) {
-    errors.username = "Enter a username";
-  } else if (formData.username.length < 4) {
-    errors.username = "Username must have at least 4 characters";
-  }
-
-  if (!formData.email.trim()) {
-    errors.email = "Email is required";
-  } else if (!formData.email.includes("@")) {
-    errors.email = "Enter a valid email";
-  }
-
-  if (!formData.password.trim()) {
-    errors.password = "Enter a password";
-  } else if (formData.password.length < 8) {
-    errors.password = "Password must have at least 8 characters";
-  }
-
-  if (formData.password !== formData.confirmPassword) {
-    errors.confirmPassword = "Password mismatch";
-  }
+export const doctorDetailFormValidator = (
+  formData: Omit<ConvertToString<DocDetailType>, "age">
+): Partial<Omit<ConvertToString<DocDetailType>, "age">> => {
+  const errors: Partial<Omit<ConvertToString<DocDetailType>, "age">> = {};
 
   if (!formData.department.trim()) {
     errors.department = "Choose a department";
-  }
-
-  if (!formData.age.trim() || isNaN(Number(formData.age))) {
-    errors.age = "Enter a valid age";
-  } else if (Number(formData.age) < 20) {
-    errors.age = "Is this really a doctor?";
-  }
-
-  if (!formData.experience.trim() || isNaN(Number(formData.age))) {
-    errors.experience = "Enter a valid years of experience";
   }
 
   if (!formData.gender.trim()) {
     errors.gender = "Please select a gender";
   }
 
+  if (!formData.experience.trim() || isNaN(Number(formData.experience))) {
+    errors.experience = "Enter valid years of experience";
+  }
+
   if (!formData.address.trim()) {
-    errors.address = "Please Enter a address";
+    errors.address = "Please enter an address";
   } else if (formData.address.length < 10) {
     errors.address = "Enter a valid address";
   }
 
-  if (!formData.phone.trim() || isNaN(Number(formData.password))) {
-    errors.phone = "Enter phone number";
-  } else if (formData.phone.length === 10) {
-    errors.phone = "Enter a valid phone number";
+  if (!formData.phone.trim() || isNaN(Number(formData.phone))) {
+    errors.phone = "Enter a phone number";
+  } else if (formData.phone.length !== 10) {
+    errors.phone = "Phone number must be 10 digits";
   }
 
   if (!formData.profilephoto.trim()) {
-    errors.profilephoto = "Profile pic url cannot be empty";
-  } else if (!formData.profilephoto.includes("http")) {
-    errors.profilephoto = "Enter a valid photo url";
+    errors.profilephoto = "Profile photo URL cannot be empty";
+  } else if (formData.profilephoto.includes("http")) {
+    errors.profilephoto = "Enter a valid photo URL";
   }
 
   return errors;
