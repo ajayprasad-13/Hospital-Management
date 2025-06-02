@@ -14,6 +14,7 @@ import AddNewPatient from "./Admin/Dashboard/Pages/AddNewPatient";
 import Nurselist from "./Admin/Dashboard/Pages/Nurselist";
 import { AddNewNurse } from "./Admin/Dashboard/Pages/AddNewNurse";
 import { DoctorsView } from "./Patient/DoctorsView/DoctorsView";
+import DoctorDetail from "./Patient/DoctorDetaill/DoctorDetail";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/doctorview",
     element: <DoctorsView />,
+  },
+  {
+    path: "/doctordetail/:id",
+    element: <DoctorDetail />,
   },
   {
     path: "/admin",

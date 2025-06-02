@@ -108,6 +108,8 @@ export default function AddNewDoctorStepper() {
     navigate("/admin/doctor");
   };
 
+  const handleDoctorDetailClick = () => {};
+
   return (
     <div className="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto space-y-6">
       <button

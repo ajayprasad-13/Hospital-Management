@@ -1,11 +1,18 @@
 import { FaSearch } from "react-icons/fa";
 import { Navbar } from "../../Navbar/Navbar";
 import { useFetchDoctor } from "../../Hooks/Doctor/useFetchDoctor";
-import type { DocDetailType } from "../../../types/ProfileDetailTypes";
+
+import { useNavigate } from "react-router-dom";
 
 export const DoctorsView = () => {
   const { data: docData } = useFetchDoctor();
   console.log(docData);
+
+  const navigate = useNavigate();
+
+  const handleMoreDetailClick = (id: string) => {
+    navigate("/doctordetail/" + id);
+  };
 
   return (
     <>
@@ -59,11 +66,12 @@ export const DoctorsView = () => {
                 <th className="px-6 py-3 text-sm font-semibold">Name</th>
                 <th className="px-6 py-3 text-sm font-semibold">Specialty</th>
                 <th className="px-6 py-3 text-sm font-semibold">Experience</th>
+                <th className="px-6 py-3 text-sm font-semibold"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {docData?.map((doctor: DocDetailType) => (
-                <tr className="hover:bg-blue-50">
+              {docData?.map((doctor: any) => (
+                <tr key={doctor.id} className="hover:bg-blue-50">
                   <td className="px-6 py-4">
                     <img
                       src={doctor.profilephoto}
@@ -79,6 +87,14 @@ export const DoctorsView = () => {
                   </td>
                   <td className="px-6 py-4 text-gray-600">
                     {doctor.experience} years
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => handleMoreDetailClick(doctor.id)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-xl shadow-md text-sm"
+                    >
+                      More Details
+                    </button>
                   </td>
                 </tr>
               ))}
