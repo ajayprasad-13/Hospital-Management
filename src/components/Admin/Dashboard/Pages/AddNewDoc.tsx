@@ -201,7 +201,22 @@ export default function AddNewDoctorStepper() {
                 <option value="Cardiology">Cardiology</option>
                 <option value="Neurology">Neurology</option>
                 <option value="Orthopedics">Orthopedics</option>
+                <option value="Gastroenterology">Gastroenterology</option>
+                <option value="Pulmonology">Pulmonology</option>
+                <option value="Nephrology">Nephrology</option>
+                <option value="Urology">Urology</option>
+                <option value="Oncology">Oncology</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="ENT (Ear, Nose, Throat)">
+                  ENT (Ear, Nose, Throat)
+                </option>
+                <option value="Ophthalmology">Ophthalmology</option>
+                <option value="Obstetrics and Gynecology (OB/GYN)">
+                  Obstetrics and Gynecology (OB/GYN)
+                </option>
                 <option value="Pediatrics">Pediatrics</option>
+                <option value="Psychiatry">Psychiatry</option>
+                <option value="Dentistry">Dentistry</option>
                 <option value="General Medicine">General Medicine</option>
               </select>
             </div>
