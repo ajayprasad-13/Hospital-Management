@@ -83,7 +83,7 @@ export const doctorDetailFormValidator = (
 
   if (!formData.profilephoto.trim()) {
     errors.profilephoto = "Profile photo URL cannot be empty";
-  } else if (formData.profilephoto.includes("http")) {
+  } else if (!formData.profilephoto.includes("http")) {
     errors.profilephoto = "Enter a valid photo URL";
   }
 

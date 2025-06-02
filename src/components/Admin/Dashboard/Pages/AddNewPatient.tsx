@@ -108,7 +108,7 @@ export default function AddNewPatient() {
       });
 
       toast.success("Patient profile created sucessfully");
-      navigate("/admin/patient");
+      navigate("/admin/patients");
     }
   };
 

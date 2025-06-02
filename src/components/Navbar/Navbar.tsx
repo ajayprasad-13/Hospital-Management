@@ -26,6 +26,10 @@ export const Navbar = () => {
     navigate("/userprofile/" + user.id);
   }
 
+  function handleDoctorsClick() {
+    navigate("/doctorview");
+  }
+
   return (
     <nav className="bg-white shadow-md py-4 px-8 flex justify-between items-center relative">
       <div
@@ -39,7 +43,10 @@ export const Navbar = () => {
         <li className="hover:text-blue-600 transition cursor-pointer">
           Departments
         </li>
-        <li className="hover:text-blue-600 transition cursor-pointer">
+        <li
+          onClick={handleDoctorsClick}
+          className="hover:text-blue-600 transition cursor-pointer"
+        >
           Doctors
         </li>
         <li className="hover:text-blue-600 transition cursor-pointer">
