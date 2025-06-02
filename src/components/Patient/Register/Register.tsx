@@ -41,6 +41,10 @@ export const Register = () => {
     }
   }
 
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="h-screen flex">
@@ -138,6 +142,15 @@ export const Register = () => {
               >
                 Register
               </button>
+              <p className="text-center">
+                Already have an account?
+                <span
+                  onClick={handleLoginClick}
+                  className="underline text-blue-600 ml-1"
+                >
+                  Log in
+                </span>
+              </p>
             </form>
           </div>
         </div>

@@ -49,6 +49,10 @@ export const Login = () => {
     formRef.current = { ...loginInitialState };
   }
 
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
+
   return (
     <div className="h-[100vh] flex">
       <div className="w-[50%] bg-[#99c9c9] flex items-center justify-center">
@@ -104,7 +108,16 @@ export const Login = () => {
               >
                 LOG IN →
               </button>
-              <p className="mt-5 cursor-pointer">Forgot Password?</p>
+              <p className="mt-5 ">
+                Don't have an account?
+                <span
+                  onClick={handleRegisterClick}
+                  className="cursor-pointer text-blue-600 underline"
+                >
+                  {" "}
+                  Create a new account
+                </span>
+              </p>
             </div>
           </div>
         </form>
