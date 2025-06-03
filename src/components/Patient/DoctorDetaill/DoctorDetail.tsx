@@ -7,9 +7,6 @@ const DoctorDetail = () => {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState("");
 
-  console.log(selectedDate);
-  console.log(selectedSlot);
-
   const { id } = useParams();
   const { data: doctorDetail } = useFetchDoctorById(id);
   console.log(doctorDetail);

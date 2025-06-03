@@ -1,4 +1,5 @@
 export type DocDetailType = {
+  id?: string;
   doctorname: string;
   email: string;
   department: string;
@@ -11,6 +12,7 @@ export type DocDetailType = {
 };
 
 export type PatientDetailType = {
+  id: string;
   patientname: string;
   age: number | null;
   gender: "Male" | "Female" | "Others" | "";
@@ -22,6 +24,7 @@ export type PatientDetailType = {
 };
 
 export type NurseDetailType = {
+  id: string;
   nursename: string;
   age: number | null;
   gender: "" | "male" | "female" | "others";

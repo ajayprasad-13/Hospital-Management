@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import loginLogo from "../../../assets/login_logo.jpg";
 import { loginInitialState } from "../../../constants/LoginUtilsConstants";
 import type { LoginFormType } from "../../../types/AuthenticationTypes";
@@ -12,7 +12,6 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const { data } = useLogin();
-  console.log(data);
 
   function handleLoginClick(e: React.FormEvent) {
     e.preventDefault();
@@ -43,6 +42,8 @@ export const Login = () => {
         navigate("/");
       } else if (user.role === "admin") {
         navigate("/admin");
+      } else if (user.role === "doctor") {
+        navigate("/doctorhomepage/" + user.id);
       }
     }
 

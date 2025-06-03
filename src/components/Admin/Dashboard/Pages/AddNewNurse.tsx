@@ -15,6 +15,7 @@ import {
 import { toast } from "sonner";
 import { isEmailExist } from "../../../../utils/api";
 import { UseCreateNewNurse } from "../../../Hooks/Nurse/UseCreateNewNurse";
+import { v4 as uuidv4 } from "uuid";
 
 export const AddNewNurse = () => {
   const [form, setForm] = useState<RegisterFormType & NurseDetailType>(
@@ -25,6 +26,8 @@ export const AddNewNurse = () => {
 
   const registerMutation = useRegister();
   const nurseDetailMutation = UseCreateNewNurse();
+
+  const id = uuidv4();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -41,6 +44,7 @@ export const AddNewNurse = () => {
   };
 
   const stepOneData: RegisterFormType = {
+    id: id,
     username: form.username,
     email: form.email,
     password: form.password,
@@ -70,6 +74,7 @@ export const AddNewNurse = () => {
     e.preventDefault();
 
     const nurseDetailFormData: ConvertToString<NurseDetailType> = {
+      id: id,
       nursename: form.username,
       age: form.username.toString() ?? "",
       gender: form.gender,
@@ -88,12 +93,14 @@ export const AddNewNurse = () => {
       return;
     } else if (Object.values(validateDetailsForm).length === 0) {
       registerMutation.mutate({
+        id: id,
         username: form.username,
         email: form.email,
         password: form.password,
         role: "nurse",
       });
       nurseDetailMutation.mutate({
+        id: id,
         nursename: form.username,
         age: form.age,
         gender: form.gender,

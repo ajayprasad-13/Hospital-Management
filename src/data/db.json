@@ -12,7 +12,7 @@
       "username": "ajay",
       "email": "ajay@gmail.com",
       "password": "ajay1234",
-      "role": "patient"
+      "role": "doctor"
     },
     {
       "id": "20b5",
@@ -27,6 +27,34 @@
       "email": "afafwaed@gmail.com",
       "password": "12345678",
       "role": "doctor"
+    },
+    {
+      "id": "5766",
+      "username": "dinesh Babu",
+      "email": "sfdjnadsojna@gmail.com",
+      "password": "12345678",
+      "role": "doctor"
+    },
+    {
+      "id": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "username": "Ajay Prasad R G",
+      "email": "aewibas@gmail.com",
+      "password": "1234567890",
+      "role": "doctor"
+    },
+    {
+      "id": "84daf2cf-3047-454e-b2b0-8517fc1cdc27",
+      "username": "adfsdcdsv",
+      "email": "afadfafa@gmail.com",
+      "password": "12345678",
+      "role": "patient"
+    },
+    {
+      "id": "f86ecc61-af38-4612-987a-d41013e53786",
+      "username": "adafsa",
+      "email": "wfasd@gmail.com",
+      "password": "1234567890",
+      "role": "nurse"
     }
   ],
   "doctor": [
@@ -101,6 +129,30 @@
       "address": "wefwdvdsgwefsdafsdfdsvfsdv",
       "phone": "1234567890",
       "profilephoto": "httpsadsdsd"
+    },
+    {
+      "id": "cd614db7-4871-4a63-9569-518398165801",
+      "doctorname": "dinesh Babu",
+      "email": "sfdjnadsojna@gmail.com",
+      "department": "Gastroenterology",
+      "age": "20",
+      "experience": "10",
+      "gender": "male",
+      "address": "123, Florida, America",
+      "phone": "1234567890",
+      "profilephoto": "httpasdasddsav"
+    },
+    {
+      "id": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "email": "aewibas@gmail.com",
+      "department": "Pulmonology",
+      "age": "20",
+      "experience": "30",
+      "gender": "male",
+      "address": "adsfasdvaerwrfawedc",
+      "phone": "1234567890",
+      "profilephoto": "httpasisdjkvndfjkvnfdjsvn"
     }
   ],
   "patient": [
@@ -147,6 +199,17 @@
       "address": "xcvhbxxdcfyvghbtcfyvg",
       "height": "180",
       "weight": "60"
+    },
+    {
+      "id": "84daf2cf-3047-454e-b2b0-8517fc1cdc27",
+      "patientname": "adfsdcdsv",
+      "age": "25",
+      "gender": "Male",
+      "bloodGroup": "O+",
+      "phone": "1234567890",
+      "address": "jsbfhwbhajwbfadbfahk",
+      "height": "160",
+      "weight": "80"
     }
   ],
   "nurse": [
@@ -160,6 +223,17 @@
       "department": "ICU",
       "address": "ergdhggsaeargsdth",
       "emergencycontact": "ghdfdgsfadweaf"
+    },
+    {
+      "id": "f86ecc61-af38-4612-987a-d41013e53786",
+      "nursename": "adafsa",
+      "age": "20",
+      "gender": "Male",
+      "qualification": "aasaf",
+      "experience": "5",
+      "department": "ICU",
+      "address": "ihbklsjnvksjdvsjbv",
+      "emergencycontact": "ajdnaijnasjdi"
     }
   ]
 }

@@ -15,6 +15,7 @@ import {
   doctorDetailFormValidator,
   registerFormValidator,
 } from "../../../../utils/formValidation";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddNewDoctorStepper() {
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ export default function AddNewDoctorStepper() {
   const registerMutation = useRegister();
   const doctorDetailsMutation = useCreateNewDoctor();
 
+  const id = uuidv4();
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -33,6 +36,7 @@ export default function AddNewDoctorStepper() {
   };
 
   const stepOneData: RegisterFormType = {
+    id: id,
     username: form.username,
     email: form.email,
     password: form.password,
@@ -69,6 +73,7 @@ export default function AddNewDoctorStepper() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const doctorDetailFormData: Omit<ConvertToString<DocDetailType>, "age"> = {
+      id: id,
       doctorname: form.doctorname,
       email: form.email,
       department: form.department,
@@ -86,12 +91,14 @@ export default function AddNewDoctorStepper() {
       return;
     } else if (Object.values(validateDetailsForm).length === 0) {
       registerMutation.mutate({
+        id: id,
         username: form.username,
         email: form.email,
         password: form.password,
         role: "doctor",
       });
       doctorDetailsMutation.mutate({
+        id: id,
         doctorname: form.username,
         email: form.email,
         department: form.department,
@@ -107,8 +114,6 @@ export default function AddNewDoctorStepper() {
     toast.success("Doctor created sucessfully");
     navigate("/admin/doctor");
   };
-
-  const handleDoctorDetailClick = () => {};
 
   return (
     <div className="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto space-y-6">

@@ -14,6 +14,7 @@ import {
   patientDetailFormValidator,
   registerFormValidator,
 } from "../../../../utils/formValidation";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddNewPatient() {
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ export default function AddNewPatient() {
   const registerMutation = useRegister();
   const patientDetailsMutation = useCreatePatientDetails();
 
+  const id = uuidv4();
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -34,6 +37,7 @@ export default function AddNewPatient() {
   };
 
   const stepOneData: RegisterFormType = {
+    id: id,
     username: form.username,
     email: form.email,
     password: form.password,
@@ -72,6 +76,7 @@ export default function AddNewPatient() {
     e.preventDefault();
 
     const patientDetailFormData: ConvertToString<PatientDetailType> = {
+      id: id,
       patientname: form.patientname,
       age: form.age?.toString() ?? "",
       gender: form.gender,
@@ -91,12 +96,14 @@ export default function AddNewPatient() {
       toast.error(firstError);
     } else if (Object.keys(patientDetailValidator).length === 0) {
       registerMutation.mutate({
+        id: id,
         username: form.username,
         email: form.email,
         password: form.password,
         role: "patient",
       });
       patientDetailsMutation.mutate({
+        id: id,
         patientname: form.username,
         age: form.age,
         gender: form.gender,

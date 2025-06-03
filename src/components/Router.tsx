@@ -15,6 +15,7 @@ import Nurselist from "./Admin/Dashboard/Pages/Nurselist";
 import { AddNewNurse } from "./Admin/Dashboard/Pages/AddNewNurse";
 import { DoctorsView } from "./Patient/DoctorsView/DoctorsView";
 import DoctorDetail from "./Patient/DoctorDetaill/DoctorDetail";
+import DoctorHomepage from "./Doctor/DoctorHomepage";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
   {
     path: "/userprofile/:id",
     element: <UserProfile />,
+  },
+  {
+    path: "doctorhomepage/:id",
+    element: <DoctorHomepage />,
   },
 ]);
 
