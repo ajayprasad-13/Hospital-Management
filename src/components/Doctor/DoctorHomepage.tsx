@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useFetchDoctorById } from "../Hooks/Doctor/useFetchDoctorByID";
 import { useCreateNewAvailableSlots } from "../Hooks/Doctor/useCreateNewAvailableSlots";
 import { toast } from "sonner";
+import { useFetchAppointments } from "../Hooks/Appointment/useFetchAppointments";
 
 const mockAppointments = [
   {
@@ -28,6 +29,11 @@ export default function DoctorDashboard() {
   const { id } = useParams();
   const { data: doctorDetails } = useFetchDoctorById(id || "");
   const availableSlotMutate = useCreateNewAvailableSlots();
+  const { data: appointmentData } = useFetchAppointments();
+  const doctorAppointmentData = appointmentData?.filter(
+    (data: any) => data.doctorid === id
+  );
+  console.log(doctorAppointmentData);
 
   const handleAddSlot = () => {
     if (!selectedDate || !startTime || !endTime) return;
@@ -107,19 +113,17 @@ export default function DoctorDashboard() {
       <section className="bg-white rounded-2xl shadow p-4">
         <h2 className="text-xl font-semibold mb-4">Upcoming Appointments</h2>
         <ul className="space-y-3">
-          {mockAppointments.map((appt) => (
+          {doctorAppointmentData?.map((appt) => (
             <li
               key={appt.id}
               className="border p-3 rounded-xl flex flex-col md:flex-row md:justify-between md:items-center"
             >
               <div>
-                <p className="font-medium">{appt.patient}</p>
-                <p className="text-sm text-gray-600">{appt.reason}</p>
+                <p className="font-medium">{appt.patientname}</p>
+                <p className="text-sm text-gray-600">+91 {appt.patientphone}</p>
               </div>
               <p className="text-sm text-gray-700">
-                {DateTime.fromISO(appt.date).toLocaleString(
-                  DateTime.DATETIME_MED
-                )}
+                {appt.appointmentdate} {""} {appt.appointmenttime}
               </p>
             </li>
           ))}

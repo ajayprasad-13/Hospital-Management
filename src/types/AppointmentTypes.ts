@@ -5,4 +5,6 @@ export type AppointmentRecordType = {
   patientid: string;
   appointmentdate: string;
   appointmenttime: string;
+  patientphone?: number;
+  patientemail?: string;
 };

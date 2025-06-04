@@ -41,6 +41,8 @@ const DoctorDetail = () => {
       patientid: id ?? "",
       appointmentdate: selectedDate,
       appointmenttime: selectedSlot ?? "",
+      patientphone: patientDetail.phone,
+      patientemail: patientDetail.email,
     };
     appointmentDetail.mutate(appointmentData);
     toast.success("Appointment booked sucessfully");

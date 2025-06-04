@@ -20,6 +20,7 @@ export const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
+    navigate("/");
   };
 
   function handleProfileClick() {
