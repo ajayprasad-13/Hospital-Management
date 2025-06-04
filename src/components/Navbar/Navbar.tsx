@@ -27,7 +27,7 @@ export const Navbar = () => {
   }
 
   function handleDoctorsClick() {
-    navigate("/doctorview");
+    navigate(`/${user.id}/doctorview`);
   }
 
   return (

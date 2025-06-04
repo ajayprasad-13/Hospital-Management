@@ -2,14 +2,54 @@ import { useState } from "react";
 import { Navbar } from "../../Navbar/Navbar";
 import { useParams } from "react-router-dom";
 import { useFetchDoctorById } from "../../Hooks/Doctor/useFetchDoctorByID";
+import type { AppointmentRecordType } from "../../../types/AppointmentTypes";
+import { useFetchPatientById } from "../../Hooks/Patient/useFetchPatientById";
+import { useCreateAppointment } from "../../Hooks/Appointment/useCreateAppointment.ts";
+import { toast } from "sonner";
+import PatientDetailForm from "../PatientDetailForm/PatientDetailForm.tsx";
 
 const DoctorDetail = () => {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [isDetailExists, setIsDetailExists] = useState<boolean>(true);
 
-  const { id } = useParams();
-  const { data: doctorDetail } = useFetchDoctorById(id);
-  console.log(doctorDetail);
+  const { id, doctorid } = useParams();
+  const { data: doctorDetail } = useFetchDoctorById(doctorid ?? "");
+  const { data: patientDetail } = useFetchPatientById(id ?? "");
+
+  const appointmentDetail = useCreateAppointment();
+
+  const availableSlots = doctorDetail?.availableSlots as
+    | Record<string, string[]>
+    | undefined;
+
+  const availableDates = availableSlots ? Object.keys(availableSlots) : [];
+  const timeSlots =
+    selectedDate && availableSlots ? availableSlots[selectedDate] || [] : [];
+
+  const handleBookAppointment = () => {
+    if (!patientDetail) {
+      toast.error("Patient detail not found");
+      setIsDetailExists(false);
+      return;
+    }
+
+    const appointmentData: AppointmentRecordType = {
+      doctorid: doctorid ?? "",
+      doctorname: doctorDetail.doctorname,
+      patientname: patientDetail.patientname,
+      patientid: id ?? "",
+      appointmentdate: selectedDate,
+      appointmenttime: selectedSlot ?? "",
+    };
+    appointmentDetail.mutate(appointmentData);
+    toast.success("Appointment booked sucessfully");
+  };
+
+  const handleDetailSumbit = () => {
+    setIsDetailExists(true);
+  };
+
   return (
     <>
       <div className="mb-5">
@@ -19,7 +59,7 @@ const DoctorDetail = () => {
         <div className="flex flex-col sm:flex-row items-center gap-8">
           <img
             src={doctorDetail?.profilephoto}
-            alt="Dr. Sarah Lee"
+            alt={doctorDetail?.doctorname || "Doctor"}
             className="w-36 h-36 rounded-full border-4 border-blue-100 shadow-md object-cover"
           />
           <div className="flex-1">
@@ -44,73 +84,59 @@ const DoctorDetail = () => {
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Select Date
           </h2>
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
-          />
+          {availableDates.length > 0 ? (
+            <select
+              value={selectedDate}
+              onChange={(e) => {
+                setSelectedDate(e.target.value);
+                setSelectedSlot(null);
+              }}
+              className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+            >
+              <option value="" disabled>
+                Select a date
+              </option>
+              {availableDates.map((date, index) => (
+                <option key={index} value={date}>
+                  {date}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p className="text-gray-500">No Slot available.</p>
+          )}
         </div>
 
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-            Available Slots
-          </h2>
-          <div className="inline-flex rounded-xl border border-blue-300 overflow-hidden">
-            <button
-              onClick={() => setSelectedSlot("09:00 AM - 09:30 AM")}
-              className={`px-6 py-2 border-r border-blue-300 focus:outline-none ${
-                selectedSlot === "09:00 AM - 09:30 AM"
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-              }`}
-            >
-              09:00 AM - 09:30 AM
-            </button>
-            <button
-              onClick={() => setSelectedSlot("10:00 AM - 10:30 AM")}
-              className={`px-6 py-2 border-r border-blue-300 focus:outline-none ${
-                selectedSlot === "10:00 AM - 10:30 AM"
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-              }`}
-            >
-              10:00 AM - 10:30 AM
-            </button>
-            <button
-              onClick={() => setSelectedSlot("11:00 AM - 11:30 AM")}
-              className={`px-6 py-2 border-r border-blue-300 focus:outline-none ${
-                selectedSlot === "11:00 AM - 11:30 AM"
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-              }`}
-            >
-              11:00 AM - 11:30 AM
-            </button>
-            <button
-              onClick={() => setSelectedSlot("02:00 PM - 02:30 PM")}
-              className={`px-6 py-2 border-r border-blue-300 focus:outline-none ${
-                selectedSlot === "02:00 PM - 02:30 PM"
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-              }`}
-            >
-              02:00 PM - 02:30 PM
-            </button>
-            <button
-              onClick={() => setSelectedSlot("03:00 PM - 03:30 PM")}
-              className={`px-6 py-2 focus:outline-none ${
-                selectedSlot === "03:00 PM - 03:30 PM"
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-              }`}
-            >
-              03:00 PM - 03:30 PM
-            </button>
+        {selectedDate && (
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              Available Slots
+            </h2>
+            {timeSlots.length > 0 ? (
+              <select
+                value={selectedSlot || ""}
+                onChange={(e) => setSelectedSlot(e.target.value)}
+                className="w-full max-w-xs px-4 py-2 border border-blue-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+              >
+                <option value="" disabled>
+                  Select a time slot
+                </option>
+                {timeSlots.map((slot, index) => (
+                  <option key={index} value={slot}>
+                    {slot}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <p className="text-gray-500">
+                No available time slots for this date.
+              </p>
+            )}
           </div>
-        </div>
+        )}
 
         <button
+          onClick={handleBookAppointment}
           disabled={!selectedSlot || !selectedDate}
           className={`w-full py-3 rounded-xl font-semibold text-lg shadow-lg transition ${
             selectedSlot && selectedDate
@@ -121,6 +147,9 @@ const DoctorDetail = () => {
           Book Appointment
         </button>
       </div>
+      {!isDetailExists && (
+        <PatientDetailForm onSubmitButtonClick={handleDetailSumbit} />
+      )}
     </>
   );
 };

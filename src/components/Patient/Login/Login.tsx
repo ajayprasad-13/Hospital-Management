@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import loginLogo from "../../../assets/login_logo.jpg";
 import { loginInitialState } from "../../../constants/LoginUtilsConstants";
 import type { LoginFormType } from "../../../types/AuthenticationTypes";
@@ -39,7 +39,7 @@ export const Login = () => {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success("Sucessfully logged in");
       if (user.role === "patient") {
-        navigate("/");
+        navigate("/" + user.id);
       } else if (user.role === "admin") {
         navigate("/admin");
       } else if (user.role === "doctor") {

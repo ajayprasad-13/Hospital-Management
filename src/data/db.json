@@ -152,7 +152,27 @@
       "gender": "male",
       "address": "adsfasdvaerwrfawedc",
       "phone": "1234567890",
-      "profilephoto": "httpasisdjkvndfjkvnfdjsvn"
+      "profilephoto": "httpasisdjkvndfjkvnfdjsvn",
+      "availableSlots": {
+        "18/06/2025": [
+          "16:36",
+          "17:06",
+          "17:36",
+          "18:06",
+          "18:36",
+          "19:06"
+        ],
+        "19/06/2025": [
+          "16:43",
+          "17:13",
+          "17:43",
+          "18:13",
+          "18:43",
+          "19:13",
+          "19:43",
+          "20:13"
+        ]
+      }
     }
   ],
   "patient": [
@@ -210,6 +230,39 @@
       "address": "jsbfhwbhajwbfadbfahk",
       "height": "160",
       "weight": "80"
+    },
+    {
+      "id": "20b5",
+      "patientname": "AjayPrasad R G",
+      "age": 20,
+      "gender": "Male",
+      "bloodGroup": "A+",
+      "phone": 1234567890,
+      "address": "agvfbshajvsvksajdncj",
+      "height": 160,
+      "weight": 80
+    },
+    {
+      "id": "20b5",
+      "patientname": "AjayPrasad R G",
+      "age": 20,
+      "gender": "Male",
+      "bloodGroup": "A+",
+      "phone": 1234567890,
+      "address": "agvfbshajvsvksajdncj",
+      "height": 160,
+      "weight": 80
+    },
+    {
+      "id": "20b5",
+      "patientname": "AjayPrasad R G",
+      "age": 20,
+      "gender": "Male",
+      "bloodGroup": "A+",
+      "phone": 1234567890,
+      "address": "agvfbshajvsvksajdncj",
+      "height": 160,
+      "weight": 80
     }
   ],
   "nurse": [
@@ -234,6 +287,59 @@
       "department": "ICU",
       "address": "ihbklsjnvksjdvsjbv",
       "emergencycontact": "ajdnaijnasjdi"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "762f",
+      "doctorid": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "patientname": "adfsdcdsv",
+      "patientid": "84daf2cf-3047-454e-b2b0-8517fc1cdc27",
+      "appointmentdate": "18/06/2025",
+      "appointmenttime": "16:36"
+    },
+    {
+      "id": "2077",
+      "doctorid": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "patientid": "20b5",
+      "appointmentdate": "19/06/2025",
+      "appointmenttime": "17:13"
+    },
+    {
+      "id": "d0a5",
+      "doctorid": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "patientid": "20b5",
+      "appointmentdate": "19/06/2025",
+      "appointmenttime": "17:13"
+    },
+    {
+      "id": "6ad5",
+      "doctorid": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "patientid": "20b5",
+      "appointmentdate": "19/06/2025",
+      "appointmenttime": "17:13"
+    },
+    {
+      "id": "2033",
+      "doctorid": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "patientname": "AjayPrasad R G",
+      "patientid": "20b5",
+      "appointmentdate": "18/06/2025",
+      "appointmenttime": "18:36"
+    },
+    {
+      "id": "e747",
+      "doctorid": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "patientname": "AjayPrasad R G",
+      "patientid": "20b5",
+      "appointmentdate": "18/06/2025",
+      "appointmenttime": "18:36"
     }
   ]
 }

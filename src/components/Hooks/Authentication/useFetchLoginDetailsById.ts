@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import fetchApi from "../../../api/FetchaApi";
 
-export const useFetchDoctorById = (id: string) => {
+export const useFetchLoginDetailsById = (id: string) => {
   return useQuery({
-    queryKey: ["doctor", id],
+    queryKey: ["users", id],
     queryFn: async () => {
       try {
-        const res = await fetchApi.get(`/doctor/${id}`);
+        const res = await fetchApi.get(`/users/${id}`);
         return res.data ?? [];
       } catch (err: any) {
         if (err.response.status === 404) {

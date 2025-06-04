@@ -2,16 +2,18 @@ import { FaSearch } from "react-icons/fa";
 import { Navbar } from "../../Navbar/Navbar";
 import { useFetchDoctor } from "../../Hooks/Doctor/useFetchDoctor";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const DoctorsView = () => {
   const { data: docData } = useFetchDoctor();
-  console.log(docData);
+
+  const { id } = useParams();
+  console.log(id);
 
   const navigate = useNavigate();
 
-  const handleMoreDetailClick = (id: string) => {
-    navigate("/doctordetail/" + id);
+  const handleMoreDetailClick = (doctorid: string) => {
+    navigate(`/${id}/doctorview/doctordetail/${doctorid}`);
   };
 
   return (

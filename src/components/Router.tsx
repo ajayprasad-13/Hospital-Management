@@ -23,6 +23,10 @@ const router = createBrowserRouter([
     element: <Homepage />,
   },
   {
+    path: "/:id",
+    element: <Homepage />,
+  },
+  {
     path: "/register",
     element: <Register />,
   },
@@ -31,11 +35,11 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/doctorview",
+    path: "/:id/doctorview",
     element: <DoctorsView />,
   },
   {
-    path: "/doctordetail/:id",
+    path: "/:id/doctorview/doctordetail/:doctorid",
     element: <DoctorDetail />,
   },
   {
