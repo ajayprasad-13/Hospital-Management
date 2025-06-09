@@ -5,27 +5,22 @@ import { useFetchDoctor } from "../../Hooks/Doctor/useFetchDoctor";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProfileAvatar } from "../../ProfileAvatar/ProfileAvatar";
 import { useState } from "react";
+import { filterByDropdownAndSearch } from "../../../utils/search";
 
 export const DoctorsView = () => {
   const { data: docData } = useFetchDoctor();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string>("");
 
-  const filteredData = () => {
-    return docData.filter((doctor: any) => {
-      const matchesDepartment =
-        selectedOption === "" || doctor.department === selectedOption;
+  const filteredData = filterByDropdownAndSearch(
+    docData,
+    "department",
+    "doctorname",
+    selectedOption,
+    searchQuery
+  );
 
-      const matchesSearch =
-        searchQuery === "" ||
-        (doctor.doctorname &&
-          doctor.doctorname.toLowerCase().includes(searchQuery.toLowerCase()));
-
-      return matchesDepartment && matchesSearch;
-    });
-  };
-
-  console.log(filteredData());
+  console.log(filteredData);
 
   const { id } = useParams();
   console.log(id);
@@ -97,7 +92,7 @@ export const DoctorsView = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {filteredData()?.map((doctor: any) => (
+              {filteredData?.map((doctor: any) => (
                 <tr key={doctor.id} className="hover:bg-blue-50">
                   <td className="px-6 py-4">
                     <ProfileAvatar
@@ -127,7 +122,7 @@ export const DoctorsView = () => {
             </tbody>
           </table>
 
-          {filteredData()?.length === 0 && (
+          {filteredData?.length === 0 && (
             <p className="text-center text-gray-500 mt-6 font-semibold">
               No doctors available right now.
             </p>
