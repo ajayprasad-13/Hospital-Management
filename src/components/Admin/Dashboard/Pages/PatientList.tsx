@@ -2,7 +2,8 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useFetchPaitent } from "../../../Hooks/Patient/useFetchPatient";
-import type { PatientDetailType } from "../../../../types/ProfileDetailTypes";
+
+import { filterBySearch } from "../../../../utils/search";
 
 export default function PatientsList() {
   const [search, setSearch] = useState<string>("");
@@ -13,7 +14,7 @@ export default function PatientsList() {
   }
 
   const { data: patientData } = useFetchPaitent();
-  console.log(patientData);
+  const filterData = filterBySearch(patientData, "patientname", search);
 
   return (
     <div className="space-y-6">
@@ -54,7 +55,7 @@ export default function PatientsList() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {patientData?.map((patient: PatientDetailType) => (
+            {filterData?.map((patient: Record<string, any>) => (
               <tr className="hover:bg-blue-50">
                 <td className="px-6 py-4 text-gray-800 font-medium">
                   {patient.patientname}

@@ -1,14 +1,14 @@
-export const filterByCategory = (
+export const filterByDropdown = (
   data: Record<string, any>,
-  filterData: string,
-  catergory: string
+  dropdownKey: string,
+  dropdown: string
 ) => {
-  if (catergory === "") {
+  if (dropdown === "") {
     return data;
   }
 
   return data.filter(
-    (data: Record<string, any>) => data?.[filterData] === catergory
+    (data: Record<string, any>) => data?.[dropdownKey] === dropdown
   );
 };
 
@@ -30,5 +30,22 @@ export const filterByDropdownAndSearch = (
         value.toLowerCase().includes(searchQuery.toLowerCase()));
 
     return matchesDropdown && matchesSearch;
+  });
+};
+
+export const filterBySearch = (
+  data: Record<string, any>[],
+  searchQueryKey: string,
+  searchQuery: string
+): Record<string, any>[] => {
+  if (!searchQuery) return data;
+
+  return data.filter((item) => {
+    const value = item[searchQueryKey];
+
+    return (
+      typeof value === "string" &&
+      value.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   });
 };

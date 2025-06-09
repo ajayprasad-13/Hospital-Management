@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useFetchDoctor } from "../../../Hooks/Doctor/useFetchDoctor";
 import { ProfileAvatar } from "../../../ProfileAvatar/ProfileAvatar";
+import { filterBySearch } from "../../../../utils/search";
 
 export default function Doctorlist() {
   const [search, setSearch] = useState<string>("");
@@ -13,7 +14,8 @@ export default function Doctorlist() {
   }
 
   const { data: docData } = useFetchDoctor();
-  console.log(docData);
+
+  const filterData = filterBySearch(docData, "doctorname", search);
 
   return (
     <div className="space-y-6">
@@ -35,33 +37,43 @@ export default function Doctorlist() {
       </div>
 
       <div className="overflow-x-auto bg-white rounded-xl shadow-md">
-        <table className="min-w-full table-auto text-left">
-          <thead className="bg-blue-600 text-white">
-            <tr>
-              <th className="px-6 py-3 text-sm font-semibold">Photo</th>
-              <th className="px-6 py-3 text-sm font-semibold">Name</th>
-              <th className="px-6 py-3 text-sm font-semibold">Specialty</th>
-              <th className="px-6 py-3 text-sm font-semibold">Experience</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {docData?.map((doctor: any) => (
-              <tr className="hover:bg-blue-50">
-                <td className="px-6 py-4">
-                  <ProfileAvatar
-                    name={doctor.doctorname}
-                    photoUrl={doctor.profilephoto}
-                  />
-                </td>
-                <td className="px-6 py-4 text-gray-800 font-medium">
-                  {doctor.doctorname}
-                </td>
-                <td className="px-6 py-4 text-gray-600">{doctor.department}</td>
-                <td className="px-6 py-4 text-gray-600">{doctor.experience}</td>
+        {filterData?.length > 0 ? (
+          <table className="min-w-full table-auto text-left">
+            <thead className="bg-blue-600 text-white">
+              <tr>
+                <th className="px-6 py-3 text-sm font-semibold">Photo</th>
+                <th className="px-6 py-3 text-sm font-semibold">Name</th>
+                <th className="px-6 py-3 text-sm font-semibold">Specialty</th>
+                <th className="px-6 py-3 text-sm font-semibold">Experience</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {filterData?.map((doctor: any) => (
+                <tr key={doctor.id} className="hover:bg-blue-50">
+                  <td className="px-6 py-4">
+                    <ProfileAvatar
+                      name={doctor.doctorname}
+                      photoUrl={doctor.profilephoto}
+                    />
+                  </td>
+                  <td className="px-6 py-4 text-gray-800 font-medium">
+                    {doctor.doctorname}
+                  </td>
+                  <td className="px-6 py-4 text-gray-600">
+                    {doctor.department}
+                  </td>
+                  <td className="px-6 py-4 text-gray-600">
+                    {doctor.experience} years
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="text-center py-8 text-gray-500 text-sm">
+            Doctor not found.
+          </p>
+        )}
       </div>
     </div>
   );
