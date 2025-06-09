@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useFetchDoctor } from "../../../Hooks/Doctor/useFetchDoctor";
+import { ProfileAvatar } from "../../../ProfileAvatar/ProfileAvatar";
 
 export default function Doctorlist() {
   const [search, setSearch] = useState<string>("");
@@ -47,10 +48,9 @@ export default function Doctorlist() {
             {docData?.map((doctor: any) => (
               <tr className="hover:bg-blue-50">
                 <td className="px-6 py-4">
-                  <img
-                    src={doctor.profilephoto}
-                    alt={doctor.doctorname}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-blue-100 shadow-sm"
+                  <ProfileAvatar
+                    name={doctor.doctorname}
+                    photoUrl={doctor.profilephoto}
                   />
                 </td>
                 <td className="px-6 py-4 text-gray-800 font-medium">

@@ -3,9 +3,29 @@ import { Navbar } from "../../Navbar/Navbar";
 import { useFetchDoctor } from "../../Hooks/Doctor/useFetchDoctor";
 
 import { useNavigate, useParams } from "react-router-dom";
+import { ProfileAvatar } from "../../ProfileAvatar/ProfileAvatar";
+import { useState } from "react";
 
 export const DoctorsView = () => {
   const { data: docData } = useFetchDoctor();
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
+
+  const filteredData = () => {
+    return docData.filter((doctor: any) => {
+      const matchesDepartment =
+        selectedOption === "" || doctor.department === selectedOption;
+
+      const matchesSearch =
+        searchQuery === "" ||
+        (doctor.doctorname &&
+          doctor.doctorname.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      return matchesDepartment && matchesSearch;
+    });
+  };
+
+  console.log(filteredData());
 
   const { id } = useParams();
   console.log(id);
@@ -15,6 +35,7 @@ export const DoctorsView = () => {
   const handleMoreDetailClick = (doctorid: string) => {
     navigate(`/${id}/doctorview/doctordetail/${doctorid}`);
   };
+  console.log(selectedOption);
 
   return (
     <>
@@ -25,6 +46,7 @@ export const DoctorsView = () => {
         <div className="flex items-center justify-between">
           <div className="flex w-full max-w-md">
             <input
+              onChange={(e) => setSearchQuery(e.target.value)}
               type="text"
               placeholder="Search doctors..."
               className="flex-grow px-4 py-2 border border-gray-300 rounded-l-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
@@ -34,7 +56,10 @@ export const DoctorsView = () => {
             </button>
           </div>
           <div className="ml-4">
-            <select className="px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
+            <select
+              onChange={(e) => setSelectedOption(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+            >
               <option value="">All Speciality</option>
               <option value="Cardiology">Cardiology</option>
               <option value="Neurology">Neurology</option>
@@ -72,13 +97,12 @@ export const DoctorsView = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {docData?.map((doctor: any) => (
+              {filteredData()?.map((doctor: any) => (
                 <tr key={doctor.id} className="hover:bg-blue-50">
                   <td className="px-6 py-4">
-                    <img
-                      src={doctor.profilephoto}
-                      alt={doctor.doctorname}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-blue-100 shadow-sm"
+                    <ProfileAvatar
+                      name={doctor.doctorname}
+                      photoUrl={doctor.profilephoto}
                     />
                   </td>
                   <td className="px-6 py-4 text-gray-800 font-medium">
@@ -102,6 +126,12 @@ export const DoctorsView = () => {
               ))}
             </tbody>
           </table>
+
+          {filteredData()?.length === 0 && (
+            <p className="text-center text-gray-500 mt-6 font-semibold">
+              No doctors available right now.
+            </p>
+          )}
         </div>
       </div>
     </>

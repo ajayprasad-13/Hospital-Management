@@ -55,6 +55,27 @@
       "email": "wfasd@gmail.com",
       "password": "1234567890",
       "role": "nurse"
+    },
+    {
+      "id": "1fc0",
+      "username": "Praveen Kumar J R",
+      "email": "praveen@gmail.com",
+      "password": "1234567890",
+      "role": "doctor"
+    },
+    {
+      "id": "caac0c19-dad5-4c2c-988d-05c3537002f5",
+      "username": "Dinesh Babu N G",
+      "email": "dineshbabung@gmail.com",
+      "password": "dinesh123",
+      "role": "doctor"
+    },
+    {
+      "id": "5357",
+      "username": "Ajay Prasad",
+      "email": "ajayprasad@gmail.com",
+      "password": "ajay1234",
+      "role": "patient"
     }
   ],
   "doctor": [
@@ -68,7 +89,15 @@
       "gender": "male",
       "address": "123, Florida, America",
       "phone": "1234567890",
-      "profilephoto": "https://www.future-doctor.de/wp-content/uploads/2024/08/shutterstock_2480850611.jpg"
+      "profilephoto": "https://www.future-doctor.de/wp-content/uploads/2024/08/shutterstock_2480850611.jpg",
+      "availableSlots": {
+        "04/06/2025": [
+          "18:00",
+          "18:30",
+          "19:00",
+          "19:30"
+        ]
+      }
     },
     {
       "id": "dffd",
@@ -171,6 +200,49 @@
           "19:13",
           "19:43",
           "20:13"
+        ],
+        "09/06/2025": [
+          "10:25",
+          "10:55",
+          "11:25",
+          "11:55",
+          "12:25",
+          "12:55"
+        ],
+        "10/06/2025": [
+          "15:26",
+          "15:56",
+          "16:26",
+          "16:56",
+          "17:26"
+        ],
+        "03/06/2025": [
+          "10:26",
+          "10:56",
+          "11:26",
+          "11:56",
+          "12:26",
+          "12:56",
+          "13:26",
+          "13:56"
+        ]
+      }
+    },
+    {
+      "id": "caac0c19-dad5-4c2c-988d-05c3537002f5",
+      "doctorname": "Dinesh Babu N G",
+      "email": "dineshbabung@gmail.com",
+      "department": "Gastroenterology",
+      "age": "25",
+      "experience": "5",
+      "gender": "male",
+      "address": "eagbesjnehvjfnajnjasnvsav",
+      "phone": "1234567890",
+      "profilephoto": "https://t4.ftcdn.net/jpg/02/90/27/39/360_F_290273933_ukYZjDv8nqgpOBcBUo5CQyFcxAzYlZRW.jpg",
+      "availableSlots": {
+        "05/06/2025": [
+          "11:00",
+          "11:30"
         ]
       }
     }
@@ -263,6 +335,28 @@
       "address": "agvfbshajvsvksajdncj",
       "height": 160,
       "weight": 80
+    },
+    {
+      "id": "5357",
+      "patientname": "Ajay Prasad",
+      "age": 21,
+      "gender": "Male",
+      "bloodGroup": "O+",
+      "phone": 1234567890,
+      "address": "asdfadsferwgewafsdv",
+      "height": 184,
+      "weight": 70
+    },
+    {
+      "id": "8892",
+      "patientname": "admin",
+      "age": 20,
+      "gender": "Male",
+      "bloodGroup": "O+",
+      "phone": 8870812312,
+      "address": "dfsadfsadfsa",
+      "height": 170,
+      "weight": 40
     }
   ],
   "nurse": [
@@ -308,6 +402,46 @@
       "patientid": "20b5",
       "appointmentdate": "19/06/2025",
       "appointmenttime": "18:43",
+      "patientphone": 1234567890
+    },
+    {
+      "id": "5d89",
+      "doctorid": "1fc0",
+      "doctorname": "Praveen Kumar J R",
+      "patientname": "adfsdcdsv",
+      "patientid": "84daf2cf-3047-454e-b2b0-8517fc1cdc27",
+      "appointmentdate": "04/06/2025",
+      "appointmenttime": "18:00",
+      "patientphone": "1234567890"
+    },
+    {
+      "id": "b210",
+      "doctorid": "caac0c19-dad5-4c2c-988d-05c3537002f5",
+      "doctorname": "Dinesh Babu N G",
+      "patientname": "Ajay Prasad",
+      "patientid": "5357",
+      "appointmentdate": "05/06/2025",
+      "appointmenttime": "11:00",
+      "patientphone": 1234567890
+    },
+    {
+      "id": "f5de",
+      "doctorid": "1fc0",
+      "doctorname": "Praveen Kumar J R",
+      "patientname": "admin",
+      "patientid": "8892",
+      "appointmentdate": "04/06/2025",
+      "appointmenttime": "18:00",
+      "patientphone": 8870812312
+    },
+    {
+      "id": "2ac3",
+      "doctorid": "52fcc08d-ca13-424c-aeed-93c45ef9277a",
+      "doctorname": "Ajay Prasad R G",
+      "patientname": "AjayPrasad R G",
+      "patientid": "20b5",
+      "appointmentdate": "09/06/2025",
+      "appointmenttime": "11:25",
       "patientphone": 1234567890
     }
   ]

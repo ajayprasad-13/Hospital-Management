@@ -5,35 +5,36 @@ import { useFetchDoctorById } from "../Hooks/Doctor/useFetchDoctorByID";
 import { useCreateNewAvailableSlots } from "../Hooks/Doctor/useCreateNewAvailableSlots";
 import { toast } from "sonner";
 import { useFetchAppointments } from "../Hooks/Appointment/useFetchAppointments";
-
-const mockAppointments = [
-  {
-    id: "1",
-    patient: "John Doe",
-    reason: "General Checkup",
-    date: "2025-06-05T10:00:00",
-  },
-  {
-    id: "2",
-    patient: "Jane Smith",
-    reason: "Cardiology Consultation",
-    date: "2025-06-06T14:30:00",
-  },
-];
+import { ProfileAvatar } from "../ProfileAvatar/ProfileAvatar";
 
 export default function DoctorDashboard() {
   const [selectedDate, setSelectedDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-
+  const today = DateTime.local().startOf("day");
   const { id } = useParams();
   const { data: doctorDetails } = useFetchDoctorById(id || "");
   const availableSlotMutate = useCreateNewAvailableSlots();
   const { data: appointmentData } = useFetchAppointments();
-  const doctorAppointmentData = appointmentData?.filter(
-    (data: any) => data.doctorid === id
+
+  const todayAppointmentData = appointmentData?.filter((appt: any) => {
+    const date = DateTime.fromFormat(
+      appt.appointmentdate,
+      "dd/MM/yyyy"
+    ).startOf("day");
+    return date.equals(today);
+  });
+
+  const todayDateKey = Object.keys(doctorDetails?.availableSlots ?? {}).find(
+    (dateStr) => {
+      const date = DateTime.fromFormat(dateStr, "dd/MM/yyyy").startOf("day");
+      return date.isValid && date.equals(today);
+    }
   );
-  console.log(doctorAppointmentData);
+
+  const todaySlots = todayDateKey
+    ? doctorDetails.availableSlots[todayDateKey]
+    : [];
 
   const handleAddSlot = () => {
     if (!selectedDate || !startTime || !endTime) return;
@@ -92,11 +93,17 @@ export default function DoctorDashboard() {
       </header>
 
       <section className="bg-white rounded-2xl shadow p-6 flex items-center space-x-6">
-        <img
+        {doctorDetails && (
+          <ProfileAvatar
+            name={doctorDetails.doctorname}
+            photoUrl={doctorDetails.profilephoto}
+          />
+        )}
+        {/* <img
           src={doctorDetails?.profilephoto}
           alt={`${doctorDetails?.doctorname}'s profile`}
           className="w-24 h-24 rounded-full object-cover"
-        />
+        /> */}
         <div>
           <h2 className="text-xl font-semibold">{doctorDetails?.doctorname}</h2>
           <p className="text-gray-600">
@@ -111,9 +118,9 @@ export default function DoctorDashboard() {
       </section>
 
       <section className="bg-white rounded-2xl shadow p-4">
-        <h2 className="text-xl font-semibold mb-4">Upcoming Appointments</h2>
+        <h2 className="text-xl font-semibold mb-4">Today's Appointments</h2>
         <ul className="space-y-3">
-          {doctorAppointmentData?.map((appt) => (
+          {todayAppointmentData?.map((appt: any) => (
             <li
               key={appt.id}
               className="border p-3 rounded-xl flex flex-col md:flex-row md:justify-between md:items-center"
@@ -162,20 +169,12 @@ export default function DoctorDashboard() {
         </div>
 
         <div className="space-y-2">
-          {doctorDetails?.availableSlots &&
-          Object.keys(doctorDetails.availableSlots).length > 0 ? (
-            Object.entries(
-              doctorDetails.availableSlots as Record<string, string[]>
-            ).map(([date, slots]) => (
-              <div
-                key={date}
-                className="bg-gray-100 p-3 rounded-xl text-sm text-gray-700"
-              >
-                <strong>{date}:</strong> {slots.join(", ")}
-              </div>
-            ))
+          {todayDateKey && todaySlots.length > 0 ? (
+            <div className="bg-gray-100 p-3 rounded-xl text-sm text-gray-700">
+              <strong>{todayDateKey}:</strong> {todaySlots.join(", ")}
+            </div>
           ) : (
-            <p className="text-gray-500">No availability added yet.</p>
+            <p className="text-gray-500">No slots available for today.</p>
           )}
         </div>
       </section>

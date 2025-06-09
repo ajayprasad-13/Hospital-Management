@@ -7,11 +7,14 @@ import { useFetchPatientById } from "../../Hooks/Patient/useFetchPatientById";
 import { useCreateAppointment } from "../../Hooks/Appointment/useCreateAppointment.ts";
 import { toast } from "sonner";
 import PatientDetailForm from "../PatientDetailForm/PatientDetailForm.tsx";
+import { DateTime } from "luxon";
 
 const DoctorDetail = () => {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [isDetailExists, setIsDetailExists] = useState<boolean>(true);
+
+  const today = DateTime.local().startOf("day");
 
   const { id, doctorid } = useParams();
   const { data: doctorDetail } = useFetchDoctorById(doctorid ?? "");
@@ -26,6 +29,13 @@ const DoctorDetail = () => {
   const availableDates = availableSlots ? Object.keys(availableSlots) : [];
   const timeSlots =
     selectedDate && availableSlots ? availableSlots[selectedDate] || [] : [];
+
+  const availableDateFromToday = availableDates.filter((dateStr) => {
+    const date = DateTime.fromFormat(dateStr, "dd/MM/yyyy").startOf("day");
+    return date >= today;
+  });
+
+  console.log(availableDateFromToday);
 
   const handleBookAppointment = () => {
     if (!patientDetail) {
@@ -86,7 +96,7 @@ const DoctorDetail = () => {
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Select Date
           </h2>
-          {availableDates.length > 0 ? (
+          {availableDateFromToday.length > 0 ? (
             <select
               value={selectedDate}
               onChange={(e) => {
@@ -98,7 +108,7 @@ const DoctorDetail = () => {
               <option value="" disabled>
                 Select a date
               </option>
-              {availableDates.map((date, index) => (
+              {availableDateFromToday.map((date, index) => (
                 <option key={index} value={date}>
                   {date}
                 </option>
