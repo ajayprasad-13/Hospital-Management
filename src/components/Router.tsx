@@ -16,11 +16,19 @@ import { AddNewNurse } from "./Admin/Dashboard/Pages/AddNewNurse";
 import { DoctorsView } from "./Patient/DoctorsView/DoctorsView";
 import DoctorDetail from "./Patient/DoctorDetaill/DoctorDetail";
 import DoctorHomepage from "./Doctor/DoctorHomepage";
+import { PublicRoute } from "./Routes/PublicRoute";
+import { AdminRoute } from "./Routes/AdminRoute";
+import { DoctorRoute } from "./Routes/DoctorRoute";
+import { PatientRoute } from "./Routes/PatientRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Homepage />,
+    element: (
+      <PublicRoute>
+        <Homepage />
+      </PublicRoute>
+    ),
   },
   {
     path: "/:id",
@@ -28,15 +36,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <Register />,
+    element: (
+      <PublicRoute>
+        <Register />
+      </PublicRoute>
+    ),
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
+    ),
   },
   {
     path: "/:id/doctorview",
-    element: <DoctorsView />,
+    element: (
+      <PatientRoute>
+        <DoctorsView />
+      </PatientRoute>
+    ),
   },
   {
     path: "/:id/doctorview/doctordetail/:doctorid",
@@ -44,7 +64,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <DashboardContainer />,
+    element: (
+      <AdminRoute>
+        <DashboardContainer />
+      </AdminRoute>
+    ),
     children: [
       {
         index: true,
@@ -82,7 +106,11 @@ const router = createBrowserRouter([
   },
   {
     path: "doctorhomepage/:id",
-    element: <DoctorHomepage />,
+    element: (
+      <DoctorRoute>
+        <DoctorHomepage />
+      </DoctorRoute>
+    ),
   },
 ]);
 

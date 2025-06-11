@@ -36,7 +36,12 @@ export const Login = () => {
     } else if (!user) {
       toast.error("Email or password is incorrect");
     } else if (Object.keys(validateLoginForm).length === 0 && user) {
-      localStorage.setItem("user", JSON.stringify(user));
+      const localData = {
+        id: user.id,
+        username: user.username,
+        role: user.role,
+      };
+      localStorage.setItem("user", JSON.stringify(localData));
       toast.success("Sucessfully logged in");
       if (user.role === "patient") {
         navigate("/" + user.id);
