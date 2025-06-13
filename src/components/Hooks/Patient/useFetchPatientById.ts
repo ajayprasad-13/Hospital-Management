@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import fetchApi from "../../../api/FetchaApi";
+import type { PatientDetailType } from "../../../types/ProfileDetailTypes";
 
 export const useFetchPatientById = (id: string) => {
   return useQuery({
     queryKey: ["patient", id],
-    queryFn: async () => {
+    queryFn: async (): Promise<PatientDetailType | false> => {
       try {
         const res = await fetchApi.get(`/patient/${id}`);
         return res.data;
@@ -16,6 +17,6 @@ export const useFetchPatientById = (id: string) => {
         throw err;
       }
     },
-    enabled: !!id, // only run the query if id is truthy
+    enabled: !!id,
   });
 };

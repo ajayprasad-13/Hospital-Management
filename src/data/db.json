@@ -83,6 +83,20 @@
       "email": "tamilarasu@gmail.com",
       "password": "tamil123",
       "role": "doctor"
+    },
+    {
+      "id": "211f1692-c04f-4ad1-8688-4d63bdade2ab",
+      "username": "Navaneetha",
+      "email": "navaneetha@gmail.com",
+      "password": "navani123",
+      "role": "doctor"
+    },
+    {
+      "id": "cf3c",
+      "username": "dinesh",
+      "email": "dineshmama@gmail.com",
+      "password": "dinesh123",
+      "role": "patient"
     }
   ],
   "doctor": [
@@ -272,6 +286,25 @@
           "15:30"
         ]
       }
+    },
+    {
+      "id": "211f1692-c04f-4ad1-8688-4d63bdade2ab",
+      "doctorname": "Navaneetha",
+      "email": "navaneetha@gmail.com",
+      "department": "Gastroenterology",
+      "age": "22",
+      "experience": "5",
+      "gender": "female",
+      "address": "adskugadsihviudhwieasc",
+      "phone": "1234567890",
+      "profilephoto": "https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740",
+      "availableSlots": {
+        "13/06/2025": [
+          "12:30",
+          "13:00",
+          "13:30"
+        ]
+      }
     }
   ],
   "patient": [
@@ -332,7 +365,7 @@
     },
     {
       "id": "20b5",
-      "patientname": "AjayPrasad R G",
+      "patientname": "Ajay Prasad R G",
       "age": 20,
       "gender": "Male",
       "bloodGroup": "A+",
@@ -384,6 +417,17 @@
       "address": "dfsadfsadfsa",
       "height": 170,
       "weight": 40
+    },
+    {
+      "id": "cf3c",
+      "patientname": "dinesh",
+      "age": 24,
+      "gender": "Others",
+      "bloodGroup": "A+",
+      "phone": 1234567890,
+      "address": "dgfsdfgdfbsavdsfxc",
+      "height": 160,
+      "weight": 100
     }
   ],
   "nurse": [
@@ -480,6 +524,16 @@
       "appointmentdate": "10/06/2025",
       "appointmenttime": "14:30",
       "patientphone": "1234567890"
+    },
+    {
+      "id": "4d71",
+      "doctorid": "211f1692-c04f-4ad1-8688-4d63bdade2ab",
+      "doctorname": "Navaneetha",
+      "patientname": "dinesh",
+      "patientid": "cf3c",
+      "appointmentdate": "13/06/2025",
+      "appointmenttime": "13:00",
+      "patientphone": 1234567890
     }
   ]
 }

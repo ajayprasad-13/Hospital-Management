@@ -5,7 +5,6 @@ import { Register } from "./Patient/Register/Register";
 import { Homepage } from "./Pages/Homepage/Homepage";
 import DashboardContainer from "./Admin/Dashboard/DashboardContainer/DashboardContainer";
 
-import { UserProfile } from "./Patient/Profile/UserProfile";
 import Dashboard from "./Admin/Dashboard/Pages/Dashboard";
 import Doctorlist from "./Admin/Dashboard/Pages/Doctorslist";
 import AddNewDoc from "./Admin/Dashboard/Pages/AddNewDoc";
@@ -20,6 +19,8 @@ import { PublicRoute } from "./Routes/PublicRoute";
 import { AdminRoute } from "./Routes/AdminRoute";
 import { DoctorRoute } from "./Routes/DoctorRoute";
 import { PatientRoute } from "./Routes/PatientRoute";
+import UserProfile from "./Patient/Profile/UserProfile";
+import Appointments from "./Patient/Appointments/Appointments";
 
 const router = createBrowserRouter([
   {
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
         <DoctorHomepage />
       </DoctorRoute>
     ),
+  },
+  {
+    path: "/userprofile/:id/appointments/:id",
+    element: <Appointments />,
   },
 ]);
 
