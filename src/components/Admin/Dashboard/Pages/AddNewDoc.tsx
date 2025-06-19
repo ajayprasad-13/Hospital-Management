@@ -293,14 +293,24 @@ export default function AddNewDoctorStepper() {
             </div>
             <div>
               <label className="block text-sm text-gray-600 mb-1">
-                Profile Photo (paste link)
+                Profile Photo
               </label>
               <input
-                type="text"
-                name="profilephoto"
-                value={form.profilephoto}
-                onChange={handleChange}
-                placeholder="Enter address"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setForm((prevForm) => ({
+                        ...prevForm,
+                        profilephoto: reader.result as string,
+                      }));
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                type="file"
+                accept="image/*"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
               />
             </div>

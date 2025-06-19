@@ -35,8 +35,6 @@ const DoctorDetail = () => {
     return date >= today;
   });
 
-  console.log(availableDateFromToday);
-
   const handleBookAppointment = () => {
     if (!patientDetail) {
       toast.error("Patient detail not found");
@@ -51,7 +49,7 @@ const DoctorDetail = () => {
       patientid: id ?? "",
       appointmentdate: selectedDate,
       appointmenttime: selectedSlot ?? "",
-      patientphone: patientDetail.phone,
+      patientphone: patientDetail.phone ?? 0,
       patientemail: patientDetail.email,
     };
     appointmentDetail.mutate(appointmentData);

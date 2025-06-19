@@ -47,7 +47,9 @@ export const PatientDetailForm = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const profileDetailFormData: ConvertToString<PatientDetailType> = {
+    const profileDetailFormData: ConvertToString<
+      Omit<PatientDetailType, "email">
+    > = {
       id: userData.id,
       patientname: userData.username,
       age: form.age?.toString() ?? "",
@@ -78,6 +80,7 @@ export const PatientDetailForm = ({
         address: form.address,
         height: form.height,
         weight: form.weight,
+        email: form.email,
       });
     }
 

@@ -21,6 +21,7 @@ export type PatientDetailType = {
   address: string;
   height: number | null;
   weight: number | null;
+  email: string;
 };
 
 export type NurseDetailType = {

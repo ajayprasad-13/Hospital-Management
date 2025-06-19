@@ -26,6 +26,7 @@ export const links = [
   { name: "Patient", path: "/admin/patients" },
   { name: "Doctors", path: "/admin/doctor" },
   { name: "Nurse", path: "/admin/nurse" },
+  { name: "Medicines", path: "/admin/medicines" },
 ];
 
 export const patientRegisterInitialState: RegisterFormType & PatientDetailType =

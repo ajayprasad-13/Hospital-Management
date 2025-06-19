@@ -21,6 +21,7 @@ import { DoctorRoute } from "./Routes/DoctorRoute";
 import { PatientRoute } from "./Routes/PatientRoute";
 import UserProfile from "./Patient/Profile/UserProfile";
 import Appointments from "./Patient/Appointments/Appointments";
+import MedicineList from "./Admin/Dashboard/Pages/MedicineList";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: "addnewnurse",
         element: <AddNewNurse />,
+      },
+      {
+        path: "medicines",
+        element: <MedicineList />,
       },
     ],
   },

@@ -82,18 +82,16 @@ export const doctorDetailFormValidator = (
   }
 
   if (!formData.profilephoto.trim()) {
-    errors.profilephoto = "Profile photo URL cannot be empty";
-  } else if (!formData.profilephoto.includes("http")) {
-    errors.profilephoto = "Enter a valid photo URL";
+    errors.profilephoto = "Select a photo to continue";
   }
 
   return errors;
 };
 
 export const patientDetailFormValidator = (
-  formData: ConvertToString<PatientDetailType>
-): Partial<ConvertToString<PatientDetailType>> => {
-  const errors: Partial<ConvertToString<PatientDetailType>> = {};
+  formData: ConvertToString<Omit<PatientDetailType, "email">>
+): Partial<ConvertToString<Omit<PatientDetailType, "email">>> => {
+  const errors: Partial<ConvertToString<Omit<PatientDetailType, "email">>> = {};
 
   if (!formData.age.trim() || isNaN(Number(formData.age))) {
     errors.age = "Enter a valid age";

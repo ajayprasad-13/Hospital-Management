@@ -1,10 +1,11 @@
 import { Briefcase, Stethoscope, User } from "lucide-react";
 import { useFetchDoctor } from "../../../Hooks/Doctor/useFetchDoctor";
 import { useFetchPaitent } from "../../../Hooks/Patient/useFetchPatient";
+import { UseFetchNurse } from "../../../Hooks/Nurse/UseFetchNurse";
 export default function Dashboard() {
   const { data: doctorData } = useFetchDoctor();
   const { data: patientData } = useFetchPaitent();
-
+  const { data: nurseData } = UseFetchNurse();
   const stats = [
     {
       count: patientData?.length ?? 0,
@@ -18,7 +19,12 @@ export default function Dashboard() {
       color: "text-orange-500",
       Icon: Stethoscope,
     },
-    { count: 1, label: "Nurses", color: "text-green-600", Icon: User },
+    {
+      count: nurseData?.length ?? 0,
+      label: "Nurses",
+      color: "text-green-600",
+      Icon: User,
+    },
     { count: 2, label: "Medicines", color: "text-red-500", Icon: Briefcase },
   ];
 

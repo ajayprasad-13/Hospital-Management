@@ -1,20 +1,24 @@
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { UseFetchNurse } from "../../../Hooks/Nurse/UseFetchNurse";
 import { useState } from "react";
+import { useFetchMedicine } from "../../../Hooks/Medicines/useFetchMedicine";
 import { filterBySearch } from "../../../../utils/search";
 
-export default function Nurselist() {
-  const [searchQuery, setSearchQuery] = useState<string>("");
+export default function MedicineList() {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
-  function handleAddNewNurseClick() {
-    navigate("/admin/addnewnurse");
-  }
+  const { data: medicineData } = useFetchMedicine();
 
-  const { data: nurseData } = UseFetchNurse();
+  const handleAddNewMedicineClick = () => {
+    navigate("/admin/addnewmedicine");
+  };
 
-  const filteredData = filterBySearch(nurseData, "patientname", searchQuery);
+  const filteredData = filterBySearch(
+    medicineData,
+    "medicinename",
+    searchQuery
+  );
 
   return (
     <div className="space-y-6">
@@ -23,15 +27,15 @@ export default function Nurselist() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           type="text"
-          placeholder="Search patients..."
+          placeholder="Search medicines..."
           className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
         />
         <button
-          onClick={handleAddNewNurseClick}
+          onClick={handleAddNewMedicineClick}
           className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-md"
         >
           <FaPlus />
-          Add New Nurse
+          Add New Medicine
         </button>
       </div>
 
@@ -42,29 +46,38 @@ export default function Nurselist() {
               <th className="px-6 py-3 text-left text-sm font-semibold">
                 Name
               </th>
-              <th className="px-6 py-3 text-left text-sm font-semibold">Age</th>
               <th className="px-6 py-3 text-left text-sm font-semibold">
-                Gender
+                Category
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold">
-                Blood Group
+                Quantity
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold">
-                Phone Number
+                Price
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold">
+                Actions
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {filteredData?.map((nurse: any) => (
-              <tr key={nurse.id} className="hover:bg-blue-50">
+            {filteredData?.map((med: any) => (
+              <tr key={med.id} className="hover:bg-blue-50">
                 <td className="px-6 py-4 text-gray-800 font-medium">
-                  {nurse.nursename}
+                  {med.medicinename}
                 </td>
-                <td className="px-6 py-4 text-gray-600">{nurse.age}</td>
-                <td className="px-6 py-4 text-gray-600">{nurse.gender}</td>
-                <td className="px-6 py-4 text-gray-600">{nurse.department}</td>
-                <td className="px-6 py-4 text-green-600 font-semibold">
-                  {nurse.qualification}
+                <td className="px-6 py-4 text-gray-600">{med.category}</td>
+                <td className="px-6 py-4 text-gray-600">{med.quantity}</td>
+                <td className="px-6 py-4 text-gray-600">₹{med.price}</td>
+                <td className="px-6 py-4 flex gap-3">
+                  <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm flex items-center gap-1">
+                    <FaEdit />
+                    Edit
+                  </button>
+                  <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm flex items-center gap-1">
+                    <FaTrash />
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

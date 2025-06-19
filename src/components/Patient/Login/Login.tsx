@@ -59,6 +59,8 @@ export const Login = () => {
     navigate("/register");
   };
 
+  console.log(formRef.current.email);
+
   return (
     <div className="h-[100vh] flex">
       <div className="w-[50%] bg-[#99c9c9] flex items-center justify-center">
